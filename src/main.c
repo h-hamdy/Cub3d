@@ -94,6 +94,9 @@ int main(void){
 					p.x = j * TITLE_SIZE + TITLE_SIZE / 2;
 					p.y = i * TITLE_SIZE + TITLE_SIZE / 2;
 					rect(&img, p.x - 3, p.y - 3, 7, 0xff0000);
+					for (int k = 0; k < 30; k++) {
+						my_mlx_pixel_put(&img, p.x, p.y - k, 0xff0000);
+					}
 				}
 			}
 			else if (str[i][j] == '1')
