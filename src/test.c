@@ -31,3 +31,36 @@ int	main(void)
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
+
+// 123 left
+// 124 right
+
+// 13 up
+// 1 down
+// 2 right
+// 0 left
+
+// for (int k = 0; k < 30; k++) {
+// 						my_mlx_pixel_put(
+// 							game,
+// 							game->p.x + cos(game->p.direction) * k,
+// 							game->p.y + sin(game->p.direction) * k,
+// 							0xff0000);
+// 					}
+
+
+// int		key_pressed (int key, Player p, t_data img) {
+// 	printf("%d\n", key);
+// 	// if (key == 123)
+// 	// 	p.direction += p.turnDirection * p.moveSpeed;
+// 	// else
+// 	// 	p.direction += p.direction * p.moveSpeed;
+// 	// for (int k = 0; k < 30; k++) {
+// 	// 	my_mlx_pixel_put(
+// 	// 		&img,
+// 	// 		p.x + cos(p.direction) * k,
+// 	// 		p.y + sin(p.direction) * k,
+// 	// 		0xff0000);
+// 	// }
+// 	return (0);
+// }
