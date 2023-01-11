@@ -5,8 +5,8 @@
 # include <math.h>
 
 struct Player {
-	int x;
-	int y;
+	double x;
+	double y;
 	int row;
 	int col;
 	double direction;
@@ -105,7 +105,7 @@ void	rect(data *game, int i, int j, int len, int color)
 void render_player (data *game) {
 	int k = 0;
 
-	rect(game, game->p.y - 3, game->p.x - 3, 7, 0xff0000);
+	rect(game, game->p.y -3 , game->p.x - 3, 7, 0xff0000);
 	while (k < 60) {
 		my_mlx_pixel_put(
 			game,
@@ -150,12 +150,12 @@ int		key_pressed (int key, data *game) {
 		game->p.y -= sin(game->p.direction) * game->p.moveSpeed;
 	}
 	else if (key == 2) {
-		game->p.x += (cos(game->p.direction) + M_PI / 2) * game->p.moveSpeed;
-		game->p.y += (sin(game->p.direction) + (M_PI / 2)) * game->p.moveSpeed;
+		game->p.x += cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		game->p.y += sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
 	}
 	else if (key == 0) {
-		game->p.x -= (cos(game->p.direction) + M_PI / 2) * game->p.moveSpeed;
-		game->p.y -= (sin(game->p.direction) + M_PI / 2) * game->p.moveSpeed;
+		game->p.x -= cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		game->p.y -= sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
 	}
 	if (key == 123 || key == 124 || key == 13 || key == 1 || key == 2 || key == 0) {
 		render_img(game);
@@ -176,8 +176,6 @@ int main(void){
 	PlayerSetup(&game);
 	render_img(&game);
 	render_player(&game);
-	game.p.x = game.p.row * 60;
-	game.p.y = game.p.col * 60;
 	mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win, game.img.img, 0, 0);
 	mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
 	mlx_loop(game.mlx.mlx);
