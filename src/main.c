@@ -3,6 +3,7 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
+# include <stdbool.h>
 
 struct Player {
 	double x;
@@ -45,8 +46,8 @@ char str[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 	{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
 	{'1', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '0', '0', '0', '0', '0', '1', '0', '0', '0', '1', '1', '1', '0', '1'},
-	{'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '1'},
-	{'1', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '1'},
+	{'1', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '1'},
+	{'1', '0', '0', '1', '0', '0', '1', '0', '0', '0', '0', '1', '0', '0', '1'},
 	{'1', '0', '0', '1', '0', '0', '0', '0', '0', '1', '1', '1', '0', '0', '1'},
 	{'1', '0', '0', '1', '0', '0', 'N', '0', '0', '0', '0', '0', '0', '0', '1'},
 	{'1', '1', '1', '1', '0', '0', '1', '0', '0', '0', '0', '1', '0', '0', '1'},
@@ -81,7 +82,7 @@ void	PlayerSetup(data *game) {
 		game->p.direction = 0;
 	else
 		game->p.direction = M_PI; 
-	game->p.moveSpeed = 16.0;
+	game->p.moveSpeed = 5.0;
 	game->p.rotationSpeed = 5 * (M_PI / 180);
 }
 
@@ -105,7 +106,7 @@ void	rect(data *game, int i, int j, int len, int color)
 void render_player (data *game) {
 	int k = 0;
 
-	rect(game, game->p.y -3 , game->p.x - 3, 7, 0xff0000);
+	rect(game, game->p.y - 3 , game->p.x - 3, 7, 0xff0000);
 	while (k < 60) {
 		my_mlx_pixel_put(
 			game,
@@ -124,17 +125,32 @@ void	render_img (data *game) {
 		j = 0;
 		while (j < MAP_NUM_COLS) {
 			if (str[i][j] == '0' || (i == game->p.row && j == game->p.col)) {
-				rect(game, i * TITLE_SIZE, j * TITLE_SIZE, TITLE_SIZE, 0xD3D1D1);
+				rect(game, i * TITLE_SIZE, j * TITLE_SIZE, TITLE_SIZE - 1, 0xD3D1D1);
 			}
 			else if (str[i][j] == '1')
-				rect (game, i * TITLE_SIZE, j * TITLE_SIZE, TITLE_SIZE, 0x484747);
+				rect (game, i * TITLE_SIZE, j * TITLE_SIZE, TITLE_SIZE - 1, 0x484747);
 			j++;
 		}
 		i++;
 	}
 }
 
+bool	isWall (data *game, double x, double y) {
+	if (x < 0 || x > MAP_NUM_WIDTH || y < 0 || y > MAP_NUM_HEIGHT)
+		return (true);
+	int x_index = x / TITLE_SIZE;
+	int y_index = y / TITLE_SIZE;
+	if (str[y_index][x_index] != '1') {
+		game->p.x = x;
+		game->p.y = y;
+		return (false);
+	}
+	return (false);
+}
+
 int		key_pressed (int key, data *game) {
+	double newx, newy = {0};
+
 	if (key == 53)
 		exit (1);
 	if (key == 123)
@@ -142,22 +158,22 @@ int		key_pressed (int key, data *game) {
 	else if (key == 124)
 		game->p.direction += 1 * game->p.rotationSpeed;
 	else if (key == 13) {
-		game->p.x += cos(game->p.direction) * game->p.moveSpeed;
-		game->p.y += sin(game->p.direction) * game->p.moveSpeed;
+		newx = game->p.x + cos(game->p.direction) * game->p.moveSpeed;
+		newy = game->p.y + sin(game->p.direction) * game->p.moveSpeed;
 	}
 	else if (key == 1) {
-		game->p.x -= cos(game->p.direction) * game->p.moveSpeed;
-		game->p.y -= sin(game->p.direction) * game->p.moveSpeed;
+		newx = game->p.x - cos(game->p.direction) * game->p.moveSpeed;
+		newy = game->p.y - sin(game->p.direction) * game->p.moveSpeed;
 	}
 	else if (key == 2) {
-		game->p.x += cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
-		game->p.y += sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		newx = game->p.x + cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		newy = game->p.y + sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
 	}
 	else if (key == 0) {
-		game->p.x -= cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
-		game->p.y -= sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		newx = game->p.x - cos(game->p.direction + M_PI / 2) * game->p.moveSpeed;
+		newy = game->p.y - sin(game->p.direction + M_PI / 2) * game->p.moveSpeed;
 	}
-	if (key == 123 || key == 124 || key == 13 || key == 1 || key == 2 || key == 0) {
+	if (key == 123 || key == 124 || ((key == 13 || key == 1 || key == 2 || key == 0) && (!isWall(game, newx, game->p.y)) && !isWall(game, game->p.x, newy))) {
 		render_img(game);
 		render_player(game);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, game->img.img, 0, 0);
