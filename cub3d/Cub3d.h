@@ -44,6 +44,14 @@ struct Player {
 	double rotationSpeed;
 };
 
+struct s_rays {
+	double fov_angle;
+	double ray_angle;
+	double num_rays;
+	double wall_hit_x;
+	double wall_hit_y;
+};
+
 struct	s_img {
 	void	*img;
 	char	*addr;
@@ -87,6 +95,7 @@ typedef struct s_data
 	struct s_img img;
 	struct my_mlx mlx;
 	t_info *info;
+	struct s_rays ray;
 }			t_data;
 
 // PARSING
