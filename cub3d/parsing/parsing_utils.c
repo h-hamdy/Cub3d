@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/15 15:10:30 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:37:18 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_edges(char **map, int i, int j)
 	k = 0;
 	while (map[k])
 		k++;
-	if ((i == 0 || j == 0) || (size_t)j == ft_strlen(map[i]) - 1 || i == k - 1)
+	if ((i == 0 || j == 0) || j == (int)ft_strlen(map[i]) - 1 || i == k - 1)
 		return (1);
 	return (0);
 }
@@ -29,9 +29,9 @@ void	check_previous(int now, char *previous, char *next)
 	int	j;
 	int	i;
 
-	i = ft_strlen(next);
-	j = ft_strlen(previous);
-	if (now > j || now > i)
+	i = (int)ft_strlen(next);
+	j = (int)ft_strlen(previous);
+	if (now >= j || now >= i)
 		print_error("Invalid map\n");
 }
 
