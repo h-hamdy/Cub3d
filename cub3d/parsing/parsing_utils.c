@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/14 19:12:08 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:10:30 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ char	**alloc_map(char **map, int i)
 int	*rgb_tool(char *map)
 {
 	int		i;
-	int		j;
 	t_var	var;
-	int		k;
 
 	var.rgb = malloc(sizeof(int) * 3);
 	var.tmp = ft_strdup("");
@@ -102,26 +100,7 @@ int	*rgb_tool(char *map)
 		i++;
 	if (i != 3)
 		print_error("Invalid RGB\n");
-	i = 0;
-	j = 0;
-	while (var.hold[i])
-	{
-		var.hold2 = ft_split(var.hold[i], ' ');
-		k = 0;
-		while (var.hold2[k])
-			k++;
-		if (k > 1)
-			print_error("Invalid RGB\n");
-		if (j < 3)
-		{
-			if (check_rgb(var.hold[i]))
-				print_error("Invalid RGB\n");
-			var.rgb[j] = ft_atoi(var.hold[i]);
-			rgb_handling(var.rgb[j]);
-			j++;
-		}
-		i++;
-	}
+	var.rgb = rgb_tool_help(&var);
 	free(var.tmp);
 	return (var.rgb);
 }

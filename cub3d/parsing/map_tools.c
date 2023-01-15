@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/15 13:51:22 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:07:24 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,33 @@ int	ft_read_map_help(t_elements *elm, char **map, t_info *info, int i)
 	else if (!elm->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
 		(ft_ceilling(map[i], info), elm->count++, elm->f = 1);
 	return (elm->count);
+}
+
+int	*rgb_tool_help(t_var *var)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	j = 0;
+	while (var->hold[i])
+	{
+		var->hold2 = ft_split(var->hold[i], ' ');
+		k = 0;
+		while (var->hold2[k])
+			k++;
+		if (k > 1)
+			print_error("Invalid RGB\n");
+		if (j < 3)
+		{
+			if (check_rgb(var->hold[i]))
+				print_error("Invalid RGB\n");
+			var->rgb[j] = ft_atoi(var->hold[i]);
+			rgb_handling(var->rgb[j]);
+			j++;
+		}
+		i++;
+	}
+	return (var->rgb);
 }

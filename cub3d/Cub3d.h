@@ -137,5 +137,6 @@ void	rgb_handling(int rgb);
 void	print_error(char *s);
 void	ft_parse_map_help(char **mapv);
 int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
+int		*rgb_tool_help(t_var *var);
 
 #endif
