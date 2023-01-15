@@ -10,7 +10,7 @@
 void	init_gv()
 {
 	g_v.title_size = 32;
-	g_v.map_num_rows = 15;
+	g_v.map_num_rows = 13;
 	g_v.map_num_cols = 33;
 	g_v.map_num_width = g_v.map_num_cols * g_v.title_size;
 	g_v.map_num_height = g_v.map_num_rows * g_v.title_size;
@@ -89,11 +89,9 @@ void	rect(t_data *game, int i, int j, int len, int color)
 	}
 }
 
-void	render_line(t_data *game, int distance, double direction) {
+void	render_line(t_data *game, double distance, double direction) {
 	int k = 0;
 
-	if (distance == INT_MAX)
-		return ;
 	while (k < distance) {
 		my_mlx_pixel_put(
 			game,
@@ -106,7 +104,6 @@ void	render_line(t_data *game, int distance, double direction) {
 
 void render_player (t_data *game) {
 	rect(game, game->p.y - 3 , game->p.x - 3, 7, 0xff0000);
-	// render_line(game, 30, game->p.direction);
 }
 
 void	render_img (t_data *game) {
@@ -127,28 +124,37 @@ void	render_img (t_data *game) {
 	}
 }
 
-bool	isWall (t_data *game, double x, double y, char sign) {
+int	isWall (t_data *game, double x, double y, char sign) {
+	if (x < 0 || x >= g_v.map_num_width || y < 0 || y >= g_v.map_num_height)
+		return (-1);
 	int x_index = floor(x / g_v.title_size);
 	int y_index = floor(y / g_v.title_size);
-	if (x < 0 || x >= g_v.map_num_width || y < 0 || y >= g_v.map_num_height)
-		return (true);
 	if (x_index < 0 || x_index >= g_v.map_num_cols || y_index < 0 || y_index >= g_v.map_num_rows)
-		return (true);
-	printf("%d, %d\n", y_index, x_index);
+		return (-1);
 	if (game->info->map[y_index][x_index] != '1') {
 		if (sign == 'y') {
 			game->p.x = x;
 			game->p.y = y;
 		}
-		return (false);
+		return (0);
 	}
 	else
-		return (true);
-	return (false);
+		return (1);
+	return (-1);
 }
 
 double	distanceBetweenPointx (double x1, double y1, double x2, double y2) {
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+}
+
+double get_distance (double horzHitDistance, double vertHitDistance) {
+	if (horzHitDistance == -1)
+			return (vertHitDistance);
+	else if (vertHitDistance == -1)
+			return (horzHitDistance);
+	if (horzHitDistance < vertHitDistance)
+		return (horzHitDistance);
+	return (vertHitDistance);
 }
 
 void	cast (t_data *game) {
@@ -158,8 +164,8 @@ void	cast (t_data *game) {
 	double isRight, isLeft = 0;
 
 	int HorizHit = 0;
-	int HoriwallHitx = 0;
-	int HoriwallHity = 0;
+	double HoriwallHitx = 0;
+	double HoriwallHity = 0;
 	isDown = game->ray.ray_angle > 0 && game->ray.ray_angle < M_PI;
 	isUp = !isDown;
 
@@ -178,30 +184,32 @@ void	cast (t_data *game) {
 		xstep *= -1;
 	if (isRight && xstep < 0)
 		xstep *= -1;
-	int	nextHorix = xintercept;
-	int nextHoriy = yintercept;
+	double nextHorix = xintercept;
+	double nextHoriy = yintercept;
+	int flag = 0;
 	if (isUp)
-		nextHoriy--;
+		flag = 1;
 
-	while (nextHorix >= 0 && nextHorix < g_v.map_num_width 
-		&& nextHoriy >= 0 && nextHoriy <= g_v.map_num_height) {
-		if (isWall(game, nextHorix, nextHoriy, 'n')) {
+	while (nextHorix >= 0 && nextHorix < g_v.map_num_width
+		&& nextHoriy >= 0 && nextHoriy < g_v.map_num_height) {
+		if (isWall(game, nextHorix, nextHoriy - flag, 'n') == 1) {
 			HorizHit = 1;
 			HoriwallHitx = nextHorix;
 			HoriwallHity = nextHoriy;
-			// int len = (int)sqrt(pow(HoriwallHitx - game->p.x, 2) + pow(HoriwallHity - game->p.y, 2));
-			// render_line(game, len, game->ray.ray_angle);
 			break ;
+
 		}
-		else {
+		else if (isWall(game, nextHorix, nextHoriy - flag, 'n') == 0) {
 			nextHorix += xstep;
 			nextHoriy += ystep;
 		}
 	}
+	flag = 0;
+
 	// vertical
 	int VertHit = 0;
-	int vertiwallHitx = 0;
-	int vertiwallHity = 0;
+	double vertiwallHitx = 0;
+	double vertiwallHity = 0;
 
 	xintercept = floor((game->p.x / g_v.title_size)) * g_v.title_size;
 	if (isRight)
@@ -217,45 +225,39 @@ void	cast (t_data *game) {
 	if (isDown && ystep < 0)
 		ystep *= -1;
 
-	int	nextvertix = xintercept;
-	int nextvertiy = yintercept;
+	double	nextvertix = xintercept;
+	double nextvertiy = yintercept;
 	if (isLeft)
-		nextvertix--;
+		flag = 1;
 
 	while (nextvertix >= 0 && nextvertix < g_v.map_num_width
-		&& nextvertiy >= 0 && nextvertiy <= g_v.map_num_height) {
-		if (isWall(game, nextvertix, nextvertiy, 'n')) {
+		&& nextvertiy >= 0 && nextvertiy < g_v.map_num_height) {
+		if (isWall(game, nextvertix - flag, nextvertiy, 'n') == 1) {
 			VertHit = 1;
 			vertiwallHitx = nextvertix;
 			vertiwallHity = nextvertiy;
-			// int len = (int)sqrt((pow(vertiwallHitx - game->p.x, 2) + (pow(vertiwallHity - game->p.y, 2))));
-			// render_line(game, len, game->ray.ray_angle);
 			break ;
 		}
-		else {
+		else if (isWall(game, nextvertix - flag, nextvertiy, 'n') == 0) {
 			nextvertix += xstep;
 			nextvertiy += ystep;
 		}
 	}
 
 	// caluculate both distances
-	double horzHitDistance = INT_MAX;
-	double vertHitDistance = INT_MAX;
+	double horzHitDistance = -1;
+	double vertHitDistance = -1;
 	double distance;
 	if (HorizHit == 1)
 		horzHitDistance = distanceBetweenPointx(game->p.x, game->p.y, HoriwallHitx, HoriwallHity);
 	if (VertHit == 1)
 		vertHitDistance = distanceBetweenPointx(game->p.x, game->p.y, vertiwallHitx, vertiwallHity);
 
-	// printf("vertical = %f\n", vertHitDistance);
-	// printf("horizontal = %f\n",horzHitDistance);
+	distance = get_distance (horzHitDistance, vertHitDistance);
 
-	if (horzHitDistance < vertHitDistance)
-		distance = horzHitDistance;
-	else
-		distance = vertHitDistance;
-	// printf("distance = %f\n", distance);
+	printf("%f\n", distance);
 	render_line(game, distance, game->ray.ray_angle);
+	// printf("****\n");
 	
 }
 
@@ -264,12 +266,13 @@ void	raycasting (t_data *game) {
 	int columId = 0;
 	game->ray.ray_angle = game->p.direction - (game->ray.fov_angle / 2);
 
-	while (i < 1) {
+	while (i < game->ray.num_rays) {
 		if (game->ray.ray_angle < 0)
 			game->ray.ray_angle += M_PI * 2;
 		else if (game->ray.ray_angle > M_PI * 2)
 			game->ray.ray_angle -= M_PI * 2;
 		cast(game);
+		printf("%d\n", i);
 		game->ray.ray_angle += game->ray.fov_angle / game->ray.num_rays;
 		i++;
 		columId++;
@@ -305,7 +308,7 @@ int		key_pressed (int key, t_data *game) {
 		game->p.direction += M_PI * 2;
 	else if (game->p.direction > M_PI * 2)
 		game->p.direction -= M_PI * 2;
-	if (key == TURN_LEFT || key == TURN_RIGHT || ((key == UP || key == DOWN || key == RIGHT || key == LEFT) && (!isWall(game, newx, game->p.y, 'y')) && !isWall(game, game->p.x, newy, 'y'))) {
+	if (key == TURN_LEFT || key == TURN_RIGHT || ((key == UP || key == DOWN || key == RIGHT || key == LEFT) && isWall(game, newx, game->p.y, 'y') == 0 && isWall(game, game->p.x, newy, 'y') == 0)) {
 		render_img(game);
 		render_player(game);
 		raycasting(game);

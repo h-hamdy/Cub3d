@@ -28,8 +28,8 @@ typedef struct g_var
 	int title_size;
 	int map_num_rows;
 	int map_num_cols;
-	int map_num_width;
-	int map_num_height;
+	double map_num_width;
+	double map_num_height;
 }	g_var;
 
 g_var	g_v;
@@ -47,7 +47,7 @@ struct Player {
 struct s_rays {
 	double fov_angle;
 	double ray_angle;
-	double num_rays;
+	int		 num_rays;
 	double wall_hit_x;
 	double wall_hit_y;
 };
