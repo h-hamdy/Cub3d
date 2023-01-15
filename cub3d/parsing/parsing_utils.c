@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/15 15:10:30 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:27:30 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_previous(int now, char *previous, char *next)
 
 	i = ft_strlen(next);
 	j = ft_strlen(previous);
-	if (now > j || now > i)
+	if (now >= j || now >= i)
 		print_error("Invalid map\n");
 }
 

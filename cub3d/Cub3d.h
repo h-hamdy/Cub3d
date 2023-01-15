@@ -60,6 +60,12 @@ struct	s_img {
 	int		endian;
 };
 
+typedef struct	s_wall {
+	double	rays;
+	bool	is_vertical;
+	bool	is_horisantal;
+}	t_wall;
+
 struct 	my_mlx {
 	void	*mlx;
 	void	*mlx_win;
@@ -92,11 +98,11 @@ typedef struct elements
 
 typedef struct s_data
 {
-	struct Player p;
-	struct s_img img;
-	struct my_mlx mlx;
+	struct 	Player p;
+	struct 	s_img img;
+	struct 	my_mlx mlx;
+	struct 	s_rays ray;
 	t_info *info;
-	struct s_rays ray;
 }			t_data;
 
 typedef	struct s_vars

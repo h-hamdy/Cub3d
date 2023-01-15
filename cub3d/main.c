@@ -157,7 +157,7 @@ double get_distance (double horzHitDistance, double vertHitDistance) {
 	return (vertHitDistance);
 }
 
-void	cast (t_data *game) {
+void	cast (t_data *game, t_wall wall) {
 	double xintercept, yintercept = {0};
 	double xstep, ystep = {0};
 	double isDown, isUp = 0;
@@ -258,25 +258,32 @@ void	cast (t_data *game) {
 		vertHitDistance = distanceBetweenPointx(game->p.x, game->p.y, vertiwallHitx, vertiwallHity);
 
 	distance = get_distance (horzHitDistance, vertHitDistance);
+	if (distance == vertHitDistance)
+		wall.is_vertical = true;
+	else
+		wall.is_horisantal = true;
+	wall.rays = distance;
 
-	render_line(game, distance, game->ray.ray_angle);	
+	render_line(game, wall.rays, game->ray.ray_angle);
 }
 
-void	raycasting (t_data *game) {
+t_wall*	raycasting (t_data *game) {
 	int i = 0;
 	int columId = 0;
+	t_wall *wall;
 	game->ray.ray_angle = game->p.direction - (game->ray.fov_angle / 2);
-
+	wall = (t_wall*)malloc(sizeof(t_wall) * game->ray.num_rays);
 	while (i < game->ray.num_rays) {
 		if (game->ray.ray_angle < 0)
 			game->ray.ray_angle += M_PI * 2;
 		else if (game->ray.ray_angle > M_PI * 2)
 			game->ray.ray_angle -= M_PI * 2;
-		cast(game);
+		cast(game, wall[i]);
 		game->ray.ray_angle += game->ray.fov_angle / game->ray.num_rays;
 		i++;
 		columId++;
 	}
+	return (wall);
 }
 
 int		key_pressed (int key, t_data *game) {
