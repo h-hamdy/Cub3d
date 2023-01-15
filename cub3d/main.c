@@ -10,7 +10,7 @@
 void	init_gv()
 {
 	g_v.title_size = 32;
-	g_v.map_num_rows = 13;
+	g_v.map_num_rows = 14;
 	g_v.map_num_cols = 33;
 	g_v.map_num_width = g_v.map_num_cols * g_v.title_size;
 	g_v.map_num_height = g_v.map_num_rows * g_v.title_size;
@@ -129,9 +129,9 @@ int	isWall (t_data *game, double x, double y, char sign) {
 		return (-1);
 	int x_index = floor(x / g_v.title_size);
 	int y_index = floor(y / g_v.title_size);
-	if (x_index < 0 || x_index >= g_v.map_num_cols || y_index < 0 || y_index >= g_v.map_num_rows)
+	if (y_index < 0 || y_index > g_v.map_num_rows || x_index < 0 || x_index > (int)ft_strlen(game->info->map[y_index]))
 		return (-1);
-	if (game->info->map[y_index][x_index] != '1') {
+	if (game->info->map[y_index][x_index] != ' ' && game->info->map[y_index][x_index] != '1') {
 		if (sign == 'y') {
 			game->p.x = x;
 			game->p.y = y;
@@ -203,6 +203,8 @@ void	cast (t_data *game) {
 			nextHorix += xstep;
 			nextHoriy += ystep;
 		}
+		else
+			break ;
 	}
 	flag = 0;
 
@@ -242,6 +244,8 @@ void	cast (t_data *game) {
 			nextvertix += xstep;
 			nextvertiy += ystep;
 		}
+		else
+			break ;
 	}
 
 	// caluculate both distances
@@ -255,10 +259,7 @@ void	cast (t_data *game) {
 
 	distance = get_distance (horzHitDistance, vertHitDistance);
 
-	// printf("%f\n", distance);
-	render_line(game, distance, game->ray.ray_angle);
-	// printf("****\n");
-	
+	render_line(game, distance, game->ray.ray_angle);	
 }
 
 void	raycasting (t_data *game) {
@@ -272,7 +273,6 @@ void	raycasting (t_data *game) {
 		else if (game->ray.ray_angle > M_PI * 2)
 			game->ray.ray_angle -= M_PI * 2;
 		cast(game);
-		// printf("%d\n", i);
 		game->ray.ray_angle += game->ray.fov_angle / game->ray.num_rays;
 		i++;
 		columId++;
@@ -322,16 +322,16 @@ int main(int ac, char **av) {
 
 	init_gv();
 	game.info = parsing (ac, av);
-	// game.mlx.mlx = mlx_init();
-	// game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, 1054,  448, "Cub3d");
-	// game.img.img = mlx_new_image(game.mlx.mlx, 1054, 448);
-	// game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
-	// 							&game.img.endian);
-	// game_Setup(&game);
-	// render_img(&game);
-	// render_player(&game);
-	// raycasting(&game);
-	// mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win, game.img.img, 0, 0);
-	// mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
-	// mlx_loop(game.mlx.mlx);
+	game.mlx.mlx = mlx_init();
+	game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, 1054,  448, "Cub3d");
+	game.img.img = mlx_new_image(game.mlx.mlx, 1054, 448);
+	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel, &game.img.line_length,
+								&game.img.endian);
+	game_Setup(&game);
+	render_img(&game);
+	render_player(&game);
+	raycasting(&game);
+	mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win, game.img.img, 0, 0);
+	mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
+	mlx_loop(game.mlx.mlx);
 }
