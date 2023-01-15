@@ -6,7 +6,11 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/15 18:27:30 by hhamdy           ###   ########.fr       */
+=======
+/*   Updated: 2023/01/15 17:37:18 by fbouanan         ###   ########.fr       */
+>>>>>>> 88ae42df480c2e0961d0bdba878397157813fc88
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +23,7 @@ int	check_edges(char **map, int i, int j)
 	k = 0;
 	while (map[k])
 		k++;
-	if ((i == 0 || j == 0) || (size_t)j == ft_strlen(map[i]) - 1 || i == k - 1)
+	if ((i == 0 || j == 0) || j == (int)ft_strlen(map[i]) - 1 || i == k - 1)
 		return (1);
 	return (0);
 }
@@ -29,8 +33,13 @@ void	check_previous(int now, char *previous, char *next)
 	int	j;
 	int	i;
 
+<<<<<<< HEAD
 	i = ft_strlen(next);
 	j = ft_strlen(previous);
+=======
+	i = (int)ft_strlen(next);
+	j = (int)ft_strlen(previous);
+>>>>>>> 88ae42df480c2e0961d0bdba878397157813fc88
 	if (now >= j || now >= i)
 		print_error("Invalid map\n");
 }

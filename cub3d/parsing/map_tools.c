@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/15 15:33:38 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/15 17:28:46 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_parse_map_help(char **mapv)
 	i = -1;
 	while (mapv[++i])
 	{
-		j = -1;
-		while (mapv[i][++j])
+		j = 0;
+		while (mapv[i][j])
 		{
 			if (mapv[i][j] == '0' || mapv[i][j] == 'W' || mapv[i][j] == 'E'
 				|| mapv[i][j] == 'S' || mapv[i][j] == 'N')
@@ -35,8 +35,12 @@ void	ft_parse_map_help(char **mapv)
 					|| !ft_strchr(elements, mapv[i + 1][j]) \
 					|| !ft_strchr(elements, mapv[i][j - 1]) \
 					|| !ft_strchr(elements, mapv[i][j + 1]))
-					print_error("Invalid map\n");
+					{
+						printf("here\n");
+						print_error("Invcccalid map\n");
+					}
 			}
+			j++;
 		}
 	}
 }
