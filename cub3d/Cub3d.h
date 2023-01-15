@@ -87,6 +87,7 @@ typedef struct elements
 	int	ea;
 	int	f;
 	int	c;
+	int	count;
 } t_elements;
 
 typedef struct s_data
@@ -97,6 +98,14 @@ typedef struct s_data
 	t_info *info;
 	struct s_rays ray;
 }			t_data;
+
+typedef	struct s_vars
+{
+	char	*tmp;
+	char	**hold;
+	char	**hold2;
+	int		*rgb;
+} t_var;
 
 // PARSING
 char	*get_next_line(int fd);
@@ -122,5 +131,11 @@ void	ft_north(char *map, t_info *info);
 t_info	*parsing (int ac, char **av);
 int		*count_map(char **map ,int *c);
 void	data(t_info *info);
+int		*rgb_tool(char *map);
+int		check_rgb(char *s);
+void	rgb_handling(int rgb);
+void	print_error(char *s);
+void	ft_parse_map_help(char **mapv);
+int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 
 #endif

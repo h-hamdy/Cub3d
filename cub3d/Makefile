@@ -13,7 +13,8 @@ SRCS	=	main.c \
 			parsing/parsing.c \
 			parsing/parsing_utils.c \
 			parsing/parsing_utils1.c \
-			parsing/floor_and_ceil.c
+			parsing/floor_and_ceil.c \
+			parsing/map_tools.c
 
 all:	$(NAME)
 

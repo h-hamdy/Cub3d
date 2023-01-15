@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
+/*   Updated: 2023/01/14 19:12:08 by fbouanan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Cub3d.h"
 
 int	check_edges(char **map, int i, int j)
@@ -20,10 +32,7 @@ void	check_previous(int now, char *previous, char *next)
 	i = ft_strlen(next);
 	j = ft_strlen(previous);
 	if (now > j || now > i)
-	{
-		write(2, "Invalid map\n", 13);
-		exit (1);
-	}
+		print_error("Invalid map\n");
 }
 
 void	check_map(char **map)
@@ -40,11 +49,7 @@ void	check_map(char **map)
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
 				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
 				&& map[i][j] != ' ')
-			{
-				printf("%s\n", map[i]);
-				write(2, "Invalid symbols\n", 17);
-				exit (1);
-			}
+				print_error("Invalid map\n");
 			j++;
 		}
 		i++;
@@ -70,4 +75,53 @@ char	**alloc_map(char **map, int i)
 		mapv[j++] = map[i++];
 	mapv[j] = NULL;
 	return (mapv);
+}
+
+int	*rgb_tool(char *map)
+{
+	int		i;
+	int		j;
+	t_var	var;
+	int		k;
+
+	var.rgb = malloc(sizeof(int) * 3);
+	var.tmp = ft_strdup("");
+	i = skip_spaces(map) + 1;
+	while (map[i] && !ft_isdigit(map[i]))
+	{
+		if (map[i] == ',')
+			print_error("Invalid RGB\n");
+		if (map[i] == ' ' || map[i] == '\t')
+			i++;
+	}
+	while (map[i])
+		var.tmp = ft_strjoin2(var.tmp, map[i++]);
+	var.hold = ft_split(var.tmp, ',');
+	i = 0;
+	while (var.hold[i])
+		i++;
+	if (i != 3)
+		print_error("Invalid RGB\n");
+	i = 0;
+	j = 0;
+	while (var.hold[i])
+	{
+		var.hold2 = ft_split(var.hold[i], ' ');
+		k = 0;
+		while (var.hold2[k])
+			k++;
+		if (k > 1)
+			print_error("Invalid RGB\n");
+		if (j < 3)
+		{
+			if (check_rgb(var.hold[i]))
+				print_error("Invalid RGB\n");
+			var.rgb[j] = ft_atoi(var.hold[i]);
+			rgb_handling(var.rgb[j]);
+			j++;
+		}
+		i++;
+	}
+	free(var.tmp);
+	return (var.rgb);
 }
