@@ -4,6 +4,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "Cub3d.h"
 
 void	init_gv()
@@ -73,6 +74,8 @@ void	my_mlx_pixel_put(t_data *game, int x, int y, int color)
 {
 	char	*dst;
 
+	if(x < 0 || x >= g_v.map_num_width || y < 0 || y >= g_v.map_num_height)
+		return ;
 	dst = game->img.addr + (y * game->img.line_length + x * (game->img.bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
@@ -89,6 +92,8 @@ void	rect(t_data *game, int i, int j, int len, int color)
 void	render_line(t_data *game, int distance, double direction) {
 	int k = 0;
 
+	if (distance == INT_MAX)
+		return ;
 	while (k < distance) {
 		my_mlx_pixel_put(
 			game,
@@ -101,7 +106,7 @@ void	render_line(t_data *game, int distance, double direction) {
 
 void render_player (t_data *game) {
 	rect(game, game->p.y - 3 , game->p.x - 3, 7, 0xff0000);
-	render_line(game, 30, game->p.direction);
+	// render_line(game, 30, game->p.direction);
 }
 
 void	render_img (t_data *game) {
@@ -112,10 +117,10 @@ void	render_img (t_data *game) {
 		j = 0;
 		while (game->info->map[i][j]) {
 			if (game->info->map[i][j] == '0' || (i == game->p.row && j == game->p.col)) {
-				rect(game, i * g_v.title_size, j * g_v.title_size, g_v.title_size, 0xD3D1D1);
+				rect(game, i * g_v.title_size, j * g_v.title_size, g_v.title_size -1, 0xD3D1D1);
 			}
 			else if (game->info->map[i][j] == '1')
-				rect (game, i * g_v.title_size, j * g_v.title_size, g_v.title_size, 0x484747);
+				rect (game, i * g_v.title_size, j * g_v.title_size, g_v.title_size -1, 0x484747);
 			j++;
 		}
 		i++;
@@ -123,10 +128,13 @@ void	render_img (t_data *game) {
 }
 
 bool	isWall (t_data *game, double x, double y, char sign) {
-	if (x < 0 || x > g_v.map_num_width || y < 0 || y > g_v.map_num_height)
+	int x_index = floor(x / g_v.title_size);
+	int y_index = floor(y / g_v.title_size);
+	if (x < 0 || x >= g_v.map_num_width || y < 0 || y >= g_v.map_num_height)
 		return (true);
-	int x_index = x / g_v.title_size;
-	int y_index = y / g_v.title_size;
+	if (x_index < 0 || x_index >= g_v.map_num_cols || y_index < 0 || y_index >= g_v.map_num_rows)
+		return (true);
+	printf("%d, %d\n", y_index, x_index);
 	if (game->info->map[y_index][x_index] != '1') {
 		if (sign == 'y') {
 			game->p.x = x;
@@ -134,55 +142,121 @@ bool	isWall (t_data *game, double x, double y, char sign) {
 		}
 		return (false);
 	}
+	else
+		return (true);
 	return (false);
 }
 
+double	distanceBetweenPointx (double x1, double y1, double x2, double y2) {
+	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+}
+
 void	cast (t_data *game) {
-	int xintercept, yintercept = {0};
+	double xintercept, yintercept = {0};
 	double xstep, ystep = {0};
 	double isDown, isUp = 0;
 	double isRight, isLeft = 0;
 
 	int HorizHit = 0;
-	int wallHitx = 0;
-	int wallHity = 0;
+	int HoriwallHitx = 0;
+	int HoriwallHity = 0;
 	isDown = game->ray.ray_angle > 0 && game->ray.ray_angle < M_PI;
 	isUp = !isDown;
 
 	isRight = game->ray.ray_angle < M_PI / 2 || game->ray.ray_angle > 3 * (M_PI / 2);
 	isLeft = !isRight;
-
-	yintercept = (game->p.y / g_v.title_size) * g_v.title_size;
+	yintercept = floor((game->p.y / g_v.title_size)) * g_v.title_size;
 	if (isDown)
 		yintercept += g_v.title_size;
 	xintercept = game->p.x + ((yintercept - game->p.y) / tan(game->ray.ray_angle));
 
 	ystep = g_v.title_size;
-		if (isDown)
+		if (isUp)
 			ystep *= -1;
 	xstep = g_v.title_size / tan(game->ray.ray_angle);
 	if (isLeft && xstep > 0)
 		xstep *= -1;
-	int	nextInterceptx = xintercept;
-	int nextIntercepty = yintercept;
+	if (isRight && xstep < 0)
+		xstep *= -1;
+	int	nextHorix = xintercept;
+	int nextHoriy = yintercept;
 	if (isUp)
-		nextIntercepty--;
+		nextHoriy--;
 
-	while (nextInterceptx >= 0 && nextInterceptx < g_v.map_num_width 
-		&& nextIntercepty >= 0 && nextIntercepty <= g_v.map_num_height) {
-		if (!isWall(game, nextInterceptx, nextIntercepty, 'n')) {
+	while (nextHorix >= 0 && nextHorix < g_v.map_num_width 
+		&& nextHoriy >= 0 && nextHoriy <= g_v.map_num_height) {
+		if (isWall(game, nextHorix, nextHoriy, 'n')) {
 			HorizHit = 1;
-			wallHitx = nextInterceptx;
-			wallHity = nextIntercepty;
-			int len = (int)sqrt((pow(wallHitx - game->p.x, 2) + (pow(wallHity - game->p.y, 2))));
-			render_line(game, len, game->ray.ray_angle);
+			HoriwallHitx = nextHorix;
+			HoriwallHity = nextHoriy;
+			// int len = (int)sqrt(pow(HoriwallHitx - game->p.x, 2) + pow(HoriwallHity - game->p.y, 2));
+			// render_line(game, len, game->ray.ray_angle);
 			break ;
 		}
 		else {
-			nextInterceptx += xstep;
-			nextIntercepty += ystep;
+			nextHorix += xstep;
+			nextHoriy += ystep;
 		}
 	}
+	// vertical
+	int VertHit = 0;
+	int vertiwallHitx = 0;
+	int vertiwallHity = 0;
+
+	xintercept = floor((game->p.x / g_v.title_size)) * g_v.title_size;
+	if (isRight)
+		xintercept += g_v.title_size;
+	yintercept = game->p.y + ((xintercept - game->p.x) * tan(game->ray.ray_angle));
+
+	xstep = g_v.title_size;
+		if (isLeft)
+			xstep *= -1;
+	ystep = g_v.title_size * tan(game->ray.ray_angle);
+	if (isUp && ystep > 0)
+		ystep *= -1;
+	if (isDown && ystep < 0)
+		ystep *= -1;
+
+	int	nextvertix = xintercept;
+	int nextvertiy = yintercept;
+	if (isLeft)
+		nextvertix--;
+
+	while (nextvertix >= 0 && nextvertix < g_v.map_num_width
+		&& nextvertiy >= 0 && nextvertiy <= g_v.map_num_height) {
+		if (isWall(game, nextvertix, nextvertiy, 'n')) {
+			VertHit = 1;
+			vertiwallHitx = nextvertix;
+			vertiwallHity = nextvertiy;
+			// int len = (int)sqrt((pow(vertiwallHitx - game->p.x, 2) + (pow(vertiwallHity - game->p.y, 2))));
+			// render_line(game, len, game->ray.ray_angle);
+			break ;
+		}
+		else {
+			nextvertix += xstep;
+			nextvertiy += ystep;
+		}
+	}
+
+	// caluculate both distances
+	double horzHitDistance = INT_MAX;
+	double vertHitDistance = INT_MAX;
+	double distance;
+	if (HorizHit == 1)
+		horzHitDistance = distanceBetweenPointx(game->p.x, game->p.y, HoriwallHitx, HoriwallHity);
+	if (VertHit == 1)
+		vertHitDistance = distanceBetweenPointx(game->p.x, game->p.y, vertiwallHitx, vertiwallHity);
+
+	// printf("vertical = %f\n", vertHitDistance);
+	// printf("horizontal = %f\n",horzHitDistance);
+
+	if (horzHitDistance < vertHitDistance)
+		distance = horzHitDistance;
+	else
+		distance = vertHitDistance;
+	// printf("distance = %f\n", distance);
+	render_line(game, distance, game->ray.ray_angle);
+	
 }
 
 void	raycasting (t_data *game) {
@@ -238,8 +312,7 @@ int		key_pressed (int key, t_data *game) {
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, game->img.img, 0, 0);
 	}
 	return (0);
-}
-
+} 
 
 int main(int ac, char **av) {
 	t_data game;
