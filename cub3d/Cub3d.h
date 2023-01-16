@@ -103,7 +103,8 @@ typedef struct s_data
 	struct 	s_img img;
 	struct 	my_mlx mlx;
 	struct 	s_rays ray;
-	t_info *info;
+	t_info	*info;
+	t_wall	*wall;
 }			t_data;
 
 typedef	struct s_vars
@@ -145,6 +146,9 @@ void	print_error(char *s);
 void	ft_parse_map_help(char **mapv);
 int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 int		*rgb_tool_help(t_var *var);
+
+// render 3D
+void	render_3d(t_data *game);
 
 // game_setup
 void	init_gv();

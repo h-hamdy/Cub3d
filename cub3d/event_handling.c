@@ -4,7 +4,7 @@ int		key_pressed (int key, t_data *game) {
 	double newx, newy = {0};
 
 	if (key == EXIT)
-		exit (1);
+		exit (0);
 	if (key == TURN_LEFT)
 		game->p.direction += -1 * game->p.rotationSpeed;
 	else if (key == TURN_RIGHT)
@@ -30,9 +30,10 @@ int		key_pressed (int key, t_data *game) {
 	else if (game->p.direction > M_PI * 2)
 		game->p.direction -= M_PI * 2;
 	if (key == TURN_LEFT || key == TURN_RIGHT || ((key == UP || key == DOWN || key == RIGHT || key == LEFT) && isWall(game, newx, game->p.y, 'y') == 0 && isWall(game, game->p.x, newy, 'y') == 0)) {
-		render_img(game);
-		render_player(game);
-		raycasting(game);
+		// render_img(game);
+		// render_player(game);
+		game->wall = raycasting(game);
+		render_3d(game);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, game->img.img, 0, 0);
 	}
 	return (0);

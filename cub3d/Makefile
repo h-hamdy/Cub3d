@@ -21,6 +21,7 @@ SRCS	=	main.c \
 			event_handling.c \
 			game_setup.c \
 			game_utils.c \
+			render_3d.c
 
 all:	$(NAME)
 
