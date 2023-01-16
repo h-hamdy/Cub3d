@@ -7,6 +7,7 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <math.h>
+# include <limits.h>
 # include <stdbool.h>
 
 # include "libft/libft.h"
@@ -144,5 +145,32 @@ void	print_error(char *s);
 void	ft_parse_map_help(char **mapv);
 int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 int		*rgb_tool_help(t_var *var);
+
+// game_setup
+void	init_gv();
+void	game_Setup(t_data *game);
+
+
+// game rendring
+void	my_mlx_pixel_put(t_data *game, int x, int y, int color);
+void	rect(t_data *game, int i, int j, int len, int color);
+void	render_line(t_data *game, double distance, double direction);
+void 	render_player (t_data *game);
+void	render_img (t_data *game);
+
+// count_distance
+double 	get_distance (double horzHitDistance, double vertHitDistance);
+double	distanceBetweenPointx (double x1, double y1, double x2, double y2);
+
+// event handling
+int		key_pressed (int key, t_data *game);
+
+// raycasting
+t_wall*	raycasting (t_data *game);
+
+// Utils
+char	get_direction(t_data *game);
+int		isWall (t_data *game, double x, double y, char sign);
+
 
 #endif

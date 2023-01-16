@@ -14,7 +14,13 @@ SRCS	=	main.c \
 			parsing/parsing_utils.c \
 			parsing/parsing_utils1.c \
 			parsing/floor_and_ceil.c \
-			parsing/map_tools.c
+			parsing/map_tools.c \
+			game_rendring.c \
+			raycasting.c \
+			count_distance.c \
+			event_handling.c \
+			game_setup.c \
+			game_utils.c \
 
 all:	$(NAME)
 

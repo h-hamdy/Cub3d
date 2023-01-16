@@ -1,18 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 17:52:26 by fbouanan          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/15 18:27:30 by hhamdy           ###   ########.fr       */
-=======
-/*   Updated: 2023/01/15 17:37:18 by fbouanan         ###   ########.fr       */
->>>>>>> 88ae42df480c2e0961d0bdba878397157813fc88
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "../Cub3d.h"
 
@@ -33,13 +19,11 @@ void	check_previous(int now, char *previous, char *next)
 	int	j;
 	int	i;
 
-<<<<<<< HEAD
 	i = ft_strlen(next);
 	j = ft_strlen(previous);
-=======
 	i = (int)ft_strlen(next);
 	j = (int)ft_strlen(previous);
->>>>>>> 88ae42df480c2e0961d0bdba878397157813fc88
+
 	if (now >= j || now >= i)
 		print_error("Invalid map\n");
 }
