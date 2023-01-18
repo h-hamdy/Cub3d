@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:27:58 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:18:52 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define DOWN		1
 # define RIGHT		2
 # define LEFT		0
+
+# define TEX_HEIGHT 32
+# define TEX_WIDTH	32
 
 typedef struct s_g_var
 {
@@ -139,6 +142,7 @@ typedef struct s_vars
 	char	**hold2;
 	int		*rgb;
 }			t_var;
+
 
 // PARSING
 char	*get_next_line(int fd);
