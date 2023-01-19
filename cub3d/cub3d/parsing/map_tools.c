@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/19 16:45:39 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:25:21 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_read_map_help(t_elements *elm, char **map, t_info *info, int i)
 	else if (!elm->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
 		(ft_floor(map[i], info), elm->count++, elm->f = 1);
 	else if (!elm->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
-		(ft_ceilling(map[i], info), elm->count++, elm->f = 1);
+		(ft_ceilling(map[i], info), elm->count++, elm->c = 1);
 	return (elm->count);
 }
 

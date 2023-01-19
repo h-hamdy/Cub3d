@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/19 16:06:44 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:34:15 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_img {
 
 typedef struct s_textures
 {
+	int		c_rgb;
+	int		f_rgb;
 	void	*no;
 	void	*so;
 	void	*ea;
@@ -200,6 +202,7 @@ int		*rgb_tool_help(t_var *var);
 // render 3D
 void	render_3d(t_data *game);
 void	init_textures(t_data *game);
+int		rgb_to_hex(int r, int g, int b);
 
 // game_setup
 void	init_gv(void);

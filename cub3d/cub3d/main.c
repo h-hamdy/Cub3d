@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/19 16:38:26 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:33:49 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,32 @@ void	init_textures(t_data *g)
 	int	y;
 
 	g->tex.ea = mlx_xpm_file_to_image(g->mlx.mlx, g->info->ea, &x, &y);
+	if (!g->tex.ea)
+		print_error("Invalid path of textures\n");
 	g->tex.ea_addr = mlx_get_data_addr(g->tex.ea, \
 	&g->tex.img.bits_per_pixel, &g->tex.img.line_length, &g->tex.img.endian);
 	g->tex.we = mlx_xpm_file_to_image(g->mlx.mlx, g->info->we, &x, &y);
+	if (!g->tex.we)
+		print_error("Invalid path of textures\n");
 	g->tex.we_addr = mlx_get_data_addr(g->tex.we, \
 	&g->tex.img.bits_per_pixel, &g->tex.img.line_length, &g->tex.img.endian);
 	g->tex.so = mlx_xpm_file_to_image(g->mlx.mlx, g->info->so, &x, &y);
+	if (!g->tex.so)
+		print_error("Invalid path of textures\n");
 	g->tex.so_addr = mlx_get_data_addr(g->tex.so, \
 	&g->tex.img.bits_per_pixel, &g->tex.img.line_length, &g->tex.img.endian);
 	g->tex.no = mlx_xpm_file_to_image(g->mlx.mlx, g->info->no, &x, &y);
+	if (!g->tex.no)
+		print_error("Invalid path of textures\n");
 	g->tex.no_addr = mlx_get_data_addr(g->tex.no, \
 	&g->tex.img.bits_per_pixel, &g->tex.img.line_length, &g->tex.img.endian);
+	g->tex.c_rgb = rgb_to_hex(g->info->c[0], g->info->c[1], g->info->c[2]);
+	g->tex.f_rgb = rgb_to_hex(g->info->f[0], g->info->f[1], g->info->f[2]);
 }
 
 int	main(int ac, char **av)
 {
-	t_data		game;
+	t_data	game;
 
 	if (ac > 1)
 	{

@@ -6,11 +6,19 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:22:31 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/19 16:47:04 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:17:13 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
+
+int	rgb_to_hex(int r, int g, int b)
+{
+	int	rgb;
+
+	rgb = (r << 16) + (g << 8) + b;
+	return (rgb);
+}
 
 t_var	*gener_3d(t_data *game, t_var *v, int i)
 {
@@ -56,7 +64,7 @@ void	render_3d(t_data *game)
 		gener_3d(game, &v, i);
 		j = 0;
 		while (j < v.startp)
-			my_mlx_pixel_put(game, i, j++, 0x595959);
+			my_mlx_pixel_put(game, i, j++, game->tex.c_rgb);
 		set_directions(game, &img, &v, i);
 		while (j < v.endp)
 		{
@@ -66,7 +74,7 @@ void	render_3d(t_data *game)
 			my_mlx_pixel_put(game, i, j++, *(int *)v.dst);
 		}
 		while (j < WINDOW_HEIGHT)
-			my_mlx_pixel_put(game, i, j++, 0x322100);
+			my_mlx_pixel_put(game, i, j++, game->tex.f_rgb);
 		i++;
 	}
 }
