@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:32 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/14 18:48:48 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:24:20 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_north(char *map, t_info *info)
 		tmp = ft_strjoin2(tmp, map[count++]);
 	if (!info->no)
 		info->no = tmp;
-	free(tmp);
+	else
+		free(tmp);
 }
 
 void	ft_south(char *map, t_info *info)
@@ -55,7 +56,8 @@ void	ft_south(char *map, t_info *info)
 		tmp = ft_strjoin2(tmp, map[count++]);
 	if (!info->so)
 		info->so = tmp;
-	free(tmp);
+	else
+		free(tmp);
 }
 
 void	ft_west(char *map, t_info *info)
@@ -75,7 +77,8 @@ void	ft_west(char *map, t_info *info)
 		tmp = ft_strjoin2(tmp, map[count++]);
 	if (!info->we)
 		info->we = tmp;
-	free(tmp);
+	else
+		free(tmp);
 }
 
 void	ft_east(char *map, t_info *info)
@@ -95,5 +98,6 @@ void	ft_east(char *map, t_info *info)
 		tmp = ft_strjoin2(tmp, map[count++]);
 	if (!info->ea)
 		info->ea = tmp;
-	free(tmp);
+	else
+		free(tmp);
 }

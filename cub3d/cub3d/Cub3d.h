@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/18 13:18:52 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:06:44 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,26 @@ struct s_rays {
 	double	wall_hit_y;
 };
 
-struct	s_img {
+typedef struct s_img {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-};
+}	t_img;
+
+typedef struct s_textures
+{
+	void	*no;
+	void	*so;
+	void	*ea;
+	void	*we;
+	char	*no_addr;
+	char	*so_addr;
+	char	*ea_addr;
+	char	*we_addr;
+	t_img	img;
+}	t_textures;
 
 typedef struct s_wall {
 	double	rays;
@@ -133,6 +146,7 @@ typedef struct s_data
 	struct s_rays	ray;
 	t_wall			*wall;
 	t_info			*info;
+	t_textures		tex;
 }			t_data;
 
 typedef struct s_vars
@@ -141,8 +155,15 @@ typedef struct s_vars
 	char	**hold;
 	char	**hold2;
 	int		*rgb;
+	float	distencetowall;
+	float	wallhight;
+	float	startp;
+	float	endp;
+	float	correct_ray_des;
+	char	*dst;
+	int		t_offsetx;
+	int		t_offsety;
 }			t_var;
-
 
 // PARSING
 char	*get_next_line(int fd);
@@ -178,6 +199,7 @@ int		*rgb_tool_help(t_var *var);
 
 // render 3D
 void	render_3d(t_data *game);
+void	init_textures(t_data *game);
 
 // game_setup
 void	init_gv(void);

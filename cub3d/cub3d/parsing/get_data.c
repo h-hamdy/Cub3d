@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:23 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/15 14:28:11 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:41:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*parsing_help(t_info *info, char **av)
 	int		fd;
 	char	*tmp;
 
+	(void)info;
 	a = ft_strdup("");
-	ft_initdata(info);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		print_error("Invalid path\n");
@@ -45,6 +45,8 @@ void	check_map_path(char *path)
 	char	*s;
 
 	s = ft_strrchr(path, '.');
+	if (!s)
+		print_error("Invalid Path\n");
 	if (ft_strcmp(s, ".cub"))
 		print_error("Invalid Path\n");
 }
@@ -56,6 +58,7 @@ t_info	*parsing(int ac, char **av)
 	int		count;
 
 	info = malloc(sizeof(t_info));
+	ft_initdata(info);
 	if (ac > 1)
 	{
 		check_map_path(av[1]);

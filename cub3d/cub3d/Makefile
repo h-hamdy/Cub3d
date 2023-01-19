@@ -23,7 +23,7 @@ SRCS	=	main.c \
 			dependencies/game_setup.c \
 			dependencies/game_utils.c \
 			event_handling/event_handling.c \
-			render_3d.c \
+			3d_projection/render_3d.c \
 
 all:	$(NAME)
 
