@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:36:23 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 03:40:16 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,15 @@ void	walk_direction(t_data *game, int key, double *newx, double *newy)
 
 int	check_movement(t_data *game, int key, double newx, double newy)
 {
-	return (((key == UP || key == DOWN || key == RIGHT || key == LEFT) \
-		&& !is_wall(game, newx, game->p.y, 'y') \
-		&& !is_wall(game, game->p.x, newy, 'y')));
+	if ((key == UP || key == DOWN || key == RIGHT || key == LEFT)
+		&& !is_wall(game, newx, game->p.y)
+		&& !is_wall(game, game->p.x, newy))
+	{
+		game->p.x = newx;
+		game->p.y = newy;
+		return (1);
+	}
+	return (0);
 }
 
 int	key_pressed(int key, t_data *game)
@@ -79,6 +85,7 @@ int	key_pressed(int key, t_data *game)
 	{
 		game->wall = raycasting(game);
 		render_3d(game);
+		render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, \
 			game->mlx.mlx_win, game->img.img, 0, 0);
 	}

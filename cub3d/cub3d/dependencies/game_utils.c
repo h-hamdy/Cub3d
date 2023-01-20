@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:50:59 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:35:54 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 03:37:12 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	inisialze(t_data *game, int i, int j)
 	game->info->map[i][j] = '0';
 	game->p.row = i;
 	game->p.col = j;
+	game->p.x = game->p.col * g_v.title_size + g_v.title_size / 2;
+	game->p.y = game->p.row * g_v.title_size + g_v.title_size / 2;
 	game->p.x = game->p.col * g_v.title_size + g_v.title_size / 2;
 	game->p.y = game->p.row * g_v.title_size + g_v.title_size / 2;
 	return (direction);
@@ -50,7 +52,20 @@ char	get_direction(t_data *game)
 	return (0);
 }
 
-int	is_wall(t_data *game, double x, double y, char sign)
+void	_my_mlx_pixel_put(t_data *game, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || x >= g_v.map_num_width || y < 0 || y >= g_v.map_num_height)
+		return ;
+	x *= 0.3;
+	y *= 0.3;
+	dst = game->img.addr + \
+		(y * game->img.line_length + x * (game->img.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+int	is_wall(t_data *game, double x, double y)
 {
 	int	x_index;
 	int	y_index;
@@ -64,14 +79,7 @@ int	is_wall(t_data *game, double x, double y, char sign)
 		return (-1);
 	if (game->info->map[y_index][x_index] != ' '
 		&& game->info->map[y_index][x_index] != '1')
-	{
-		if (sign == 'y')
-		{
-			game->p.x = x;
-			game->p.y = y;
-		}
 		return (0);
-	}
 	else
 		return (1);
 	return (-1);

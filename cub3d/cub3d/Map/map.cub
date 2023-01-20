@@ -1,14 +1,14 @@
-NO ./tex/wall_no.xpm
-SO ./tex/wall_so.xpm
-WE ./tex/wall_we.xpm
-EA ./tex/wall_ea.xpm
+NO ./textures/wall_no.xpm
+SO ./textures/wall_so.xpm
+WE ./textures/wall_we.xpm
+EA ./textures/wall_ea.xpm
 
 C 135,206,235
 F 50,33,0
 
         1111111111111111111111111
         1000000000110000000000001
-        101100N001110000000000001
+        10110000011100000000000W1
         1001001000000000010000001
 111111111011000101110000001000001
 100000000011000001110111111111111

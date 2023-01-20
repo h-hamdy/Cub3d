@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:12:00 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:32:10 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 03:32:27 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ bool	horizontal_ray(t_data *game, t_wall *wall)
 	while (next_horix >= 0 && next_horix < g_v.map_num_width
 		&& next_horiy >= 0 && next_horiy < g_v.map_num_height)
 	{
-		if (is_wall(game, next_horix, next_horiy - flag, 'n') == 1)
+		if (is_wall(game, next_horix, next_horiy - flag) == 1)
 		{
 			wall->horiwallhitx = next_horix;
 			wall->horiwallhity = next_horiy;
 			return (true);
 		}
-		else if (!is_wall(game, next_horix, next_horiy - flag, 'n'))
+		else if (!is_wall(game, next_horix, next_horiy - flag))
 			if_not_wall(wall, &next_horix, &next_horiy);
 		else
 			break ;

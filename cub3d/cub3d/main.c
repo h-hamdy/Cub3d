@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/19 17:33:49 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/20 03:40:59 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,33 @@ void	init_textures(t_data *g)
 	g->tex.f_rgb = rgb_to_hex(g->info->f[0], g->info->f[1], g->info->f[2]);
 }
 
+void	render_mini_map(t_data *game)
+{
+	render_img(game);
+	render_player(game, game->p.x - 5, game->p.y - 5, 0xff0000);
+	render_line(game, 30, game->p.direction);
+}
+
+int	mouse_event_handler(int button, int x, int y, t_data *game)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		game->p.direction += -1 * game->p.rotation_speed;
+	else if (button == 2)
+		game->p.direction += 1 * game->p.rotation_speed;
+	if (button == 1 || button == 2)
+	{
+		game->wall = raycasting(game);
+		render_3d(game);
+		render_mini_map(game);
+		mlx_put_image_to_window(game->mlx.mlx, \
+			game->mlx.mlx_win, game->img.img, 0, 0);
+		normalize(game);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	game;
@@ -60,8 +87,10 @@ int	main(int ac, char **av)
 		init_textures(&game);
 		game.wall = raycasting(&game);
 		render_3d(&game);
+		render_mini_map(&game);
 		mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win, \
 			game.img.img, 0, 0);
+		mlx_hook(game.mlx.mlx_win, 4, 0, mouse_event_handler, &game);
 		mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
 		mlx_loop(game.mlx.mlx);
 	}

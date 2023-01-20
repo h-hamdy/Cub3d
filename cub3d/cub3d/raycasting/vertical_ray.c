@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:11:51 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:32:18 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 03:31:13 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ bool	vertical_ray(t_data *game, t_wall *wall)
 	while (nextvertix >= 0 && nextvertix < g_v.map_num_width
 		&& nextvertiy >= 0 && nextvertiy < g_v.map_num_height)
 	{
-		if (is_wall(game, nextvertix - flag, nextvertiy, 'n') == 1)
+		if (is_wall(game, nextvertix - flag, nextvertiy) == 1)
 		{
 			wall->vertiwallhitx = nextvertix;
 			wall->vertiwallhity = nextvertiy;
 			return (true);
 		}
-		else if (is_wall(game, nextvertix - flag, nextvertiy, 'n') == 0)
+		else if (is_wall(game, nextvertix - flag, nextvertiy) == 0)
 			if_not_wall(wall, &nextvertix, &nextvertiy);
 		else
 			break ;
