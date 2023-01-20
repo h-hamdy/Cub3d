@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:58:20 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/18 12:56:08 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/20 04:54:04 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_wall	*raycasting(t_data *game)
 		else if (game->ray.ray_angle > M_PI * 2)
 			game->ray.ray_angle -= M_PI * 2;
 		wall[colum_id] = cast(game, wall[i]);
+		wall->ray_angle = game->ray.ray_angle;
 		game->ray.ray_angle += game->ray.fov_angle / game->ray.num_rays;
 		i++;
 		colum_id++;

@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 03:40:16 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:43:27 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	walk_direction(t_data *game, int key, double *newx, double *newy)
 
 int	check_movement(t_data *game, int key, double newx, double newy)
 {
-	if ((key == UP || key == DOWN || key == RIGHT || key == LEFT)
-		&& !is_wall(game, newx, game->p.y)
-		&& !is_wall(game, game->p.x, newy))
+	if (key == UP || key == DOWN || key == RIGHT || key == LEFT)
 	{
-		game->p.x = newx;
-		game->p.y = newy;
+		if (!is_wall(game, newx, game->p.y))
+			game->p.x = newx;
+		if (!is_wall(game, game->p.x, newy))
+			game->p.y = newy;
 		return (1);
 	}
 	return (0);

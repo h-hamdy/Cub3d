@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 03:40:28 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:52:17 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_textures
 
 typedef struct s_wall {
 	double	rays;
+	double	ray_angle;
 	bool	is_vertical;
 	bool	is_horisantal;
 	double	xintercept;
