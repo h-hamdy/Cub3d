@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 19:09:49 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:04:24 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,23 @@ int	f(t_data *game)
 
 int	main(int ac, char **av)
 {
-	t_data	*game;
+	t_data	game;
 
 	if (ac > 1)
 	{
 		init_gv();
-		game = malloc(sizeof(t_data));
-		game->info = parsing (av);
-		game->mlx.mlx = mlx_init();
-		game->mlx.mlx_win = mlx_new_window(game->mlx.mlx, WINDOW_WIDTH, \
+		game.info = parsing (av);
+		game.mlx.mlx = mlx_init();
+		game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, WINDOW_WIDTH, \
 			WINDOW_HEIGHT, "Cub3d");
-		game->img.img = mlx_new_image(game->mlx.mlx, WINDOW_WIDTH, \
+		game.img.img = mlx_new_image(game.mlx.mlx, WINDOW_WIDTH, \
 			WINDOW_HEIGHT);
-		game->img.addr = mlx_get_data_addr(game->img.img,
-				&game->img.bits_per_pixel, &game->img.line_length,
-				&game->img.endian);
-		game_setup(game);
-		init_textures(game);
-		mlx_loop_hook(game->mlx.mlx, f, game);
-		mlx_loop(game->mlx.mlx);
+		game.img.addr = mlx_get_data_addr(game.img.img,
+				&game.img.bits_per_pixel, &game.img.line_length,
+				&game.img.endian);
+		game_setup(&game);
+		init_textures(&game);
+		mlx_loop_hook(game.mlx.mlx, f, &game);
+		mlx_loop(game.mlx.mlx);
 	}
 }
