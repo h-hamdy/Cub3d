@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 04:52:17 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/20 18:16:44 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,6 @@ void	ft_west(char *map, t_info *info);
 void	ft_south(char *map, t_info *info);
 void	ft_north(char *map, t_info *info);
 t_info	*parsing(int ac, char **av);
-int		*count_map(char **map, int *c);
-void	data(t_info *info);
 int		*rgb_tool(char *map);
 int		check_rgb(char *s);
 void	rgb_handling(int rgb);
@@ -199,6 +197,7 @@ void	print_error(char *s);
 void	ft_parse_map_help(char **mapv);
 int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 int		*rgb_tool_help(t_var *var);
+void	ft_free(char **str);
 
 // render 3D
 void	render_3d(t_data *game);

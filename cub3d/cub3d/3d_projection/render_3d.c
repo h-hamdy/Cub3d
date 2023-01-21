@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:22:31 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/19 17:17:13 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:55:00 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	rgb_to_hex(int r, int g, int b)
 t_var	*gener_3d(t_data *game, t_var *v, int i)
 {
 	v->correct_ray_des = game->wall[i].rays * \
-		cos(game->ray.ray_angle - game->p.direction);
+		cos(game->wall[i].ray_angle - game->p.direction);
 	v->distencetowall = (WINDOW_WIDTH / 2) / (tan(game->ray.fov_angle / 2));
 	v->wallhight = (g_v.title_size / v->correct_ray_des) * v->distencetowall;
 	v->startp = (WINDOW_HEIGHT / 2) - (v->wallhight / 2);

@@ -6,11 +6,28 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/19 17:25:21 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:15:35 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
+
+void	ft_free(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+	{
+		free(str[i]);
+		str[i] = 0;
+		i++;
+	}
+	free(str);
+	str = NULL;
+}
 
 void	ft_parse_map_help(char **mapv)
 {

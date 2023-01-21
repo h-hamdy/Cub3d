@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:23 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/19 17:20:21 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:19:25 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*parsing_help(t_info *info, char **av)
 		a = ft_strjoin(a, tmp);
 		free(tmp);
 	}
+	free(tmp);
 	return (a);
 }
 
@@ -56,13 +57,15 @@ t_info	*parsing(int ac, char **av)
 	t_info	*info;
 	char	**map;
 	int		count;
+	char	*a;
 
 	info = malloc(sizeof(t_info));
 	ft_initdata(info);
 	if (ac > 1)
 	{
 		check_map_path(av[1]);
-		map = ft_split(parsing_help(info, av), '\n');
+		a = parsing_help(info, av);
+		map = ft_split(a, '\n');
 		count = ft_read_map(map, info);
 		ft_parse_map(map, count, info);
 	}
