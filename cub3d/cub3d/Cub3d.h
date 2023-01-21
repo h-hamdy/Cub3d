@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 19:01:56 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 21:54:18 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void	ft_parse_map_help(char **mapv);
 int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 int		*rgb_tool_help(t_var *var);
 void	ft_free(char **str);
+void	check_garb(char **map, int n_lines);
 
 // render 3D
 void	render_3d(t_data *game);

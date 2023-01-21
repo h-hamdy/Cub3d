@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:38 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/21 14:40:32 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 21:54:58 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ int	check_path(char *path)
 {
 	int	i;
 
-	i = 0;
+	i = skip_spaces(path) + 2 ;
 	while (path[i])
 	{
-		if ((path[i] == '.' && path[i + 1] == '/') || path[i] == '/')
+		if ((path[i] == '.' && path[i + 1] == '/') || path[i] == '/'
+			|| ft_isalnum(path[i]))
 			return (i);
 		i++;
 	}
@@ -87,5 +88,6 @@ int	ft_read_map(char **map, t_info *info)
 	}
 	if (elm.count != 6)
 		print_error("INVALID nuber of elements\n");
+	check_garb(map, elm.count + s);
 	return (elm.count + s);
 }

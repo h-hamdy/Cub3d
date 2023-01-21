@@ -6,11 +6,39 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/21 18:58:00 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 21:56:18 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
+
+void	check_garb(char **map, int n_lines)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < n_lines)
+	{
+		j = skip_spaces(map[i]);
+		if ((map[i][j] == 'N' && map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
+			i++;
+		if ((map[i][j] == 'S' && map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
+			i++;
+		if ((map[i][j] == 'W' && map[i][j + 1] == 'E' && map[i][j + 2] == ' '))
+			i++;
+		if ((map[i][j] == 'E' && map[i][j + 1] == 'A' && map[i][j + 2] == ' '))
+			i++;
+		if ((map[i][j] == 'F' && map[i][j + 1] == ' '))
+			i++;
+		if ((map[i][j] == 'C' && map[i][j + 1] == ' '))
+			i++;
+		else if (!ft_strcmp(map[i], " "))
+			i++;
+		else
+			print_error("Invalid element\n");
+	}
+}
 
 void	ft_free(char **str)
 {
