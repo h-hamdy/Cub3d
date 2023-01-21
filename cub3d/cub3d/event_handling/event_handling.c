@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 04:43:27 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/21 19:00:01 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,24 @@ int	key_pressed(int key, t_data *game)
 	double	newx;
 	double	newy;
 
-	if (key == EXIT || key == TURN_LEFT || key == TURN_RIGHT)
+	if (key == TURN_LEFT || key == TURN_RIGHT)
 		turn_direction (game, key);
+	if (key == EXIT)
+		exit (1);
 	else if (key == UP || key == DOWN || key == RIGHT || key == LEFT)
 		walk_direction (game, key, &newx, &newy);
 	normalize(game);
 	if (key == TURN_LEFT || key == TURN_RIGHT
 		|| check_movement(game, key, newx, newy))
 	{
-		game->wall = raycasting(game);
+		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
+		raycasting(game);
 		render_3d(game);
 		render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, \
 			game->mlx.mlx_win, game->img.img, 0, 0);
+		free(game->wall);
+		game->wall = NULL;
 	}
 	return (0);
 }

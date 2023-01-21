@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 12:16:54 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:01:09 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	mouse_event_handler(int button, int x, int y, t_data *game)
 		game->p.direction += 1 * game->p.rotation_speed;
 	if (button == 1 || button == 2)
 	{
-		game->wall = raycasting(game);
+		raycasting(game);
 		render_3d(game);
 		render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, \
@@ -70,35 +70,39 @@ int	mouse_event_handler(int button, int x, int y, t_data *game)
 
 int	f(t_data *game)
 {
-	game->wall = raycasting(game);
+	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
+	raycasting(game);
 	render_3d(game);
 	render_mini_map(game);
 	mlx_hook(game->mlx.mlx_win, 4, 0, mouse_event_handler, game);
 	mlx_hook (game->mlx.mlx_win, 2, 0, key_pressed, game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
+	free(game->wall);
+	game->wall = NULL;
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_data	game;
+	t_data	*game;
 
 	if (ac > 1)
 	{
 		init_gv();
-		game.info = parsing (ac, av);
-
-		game.mlx.mlx = mlx_init();
-		game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, WINDOW_WIDTH, \
+		game = malloc(sizeof(t_data));
+		game->info = parsing (av);
+		game->mlx.mlx = mlx_init();
+		game->mlx.mlx_win = mlx_new_window(game->mlx.mlx, WINDOW_WIDTH, \
 			WINDOW_HEIGHT, "Cub3d");
-		game.img.img = mlx_new_image(game.mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-		game.img.addr = mlx_get_data_addr(game.img.img,
-				&game.img.bits_per_pixel, &game.img.line_length,
-				&game.img.endian);
-		game_setup(&game);
-		init_textures(&game);
-		mlx_loop_hook(game.mlx.mlx, f, &game);
-		mlx_loop(game.mlx.mlx);
+		game->img.img = mlx_new_image(game->mlx.mlx, WINDOW_WIDTH, \
+			WINDOW_HEIGHT);
+		game->img.addr = mlx_get_data_addr(game->img.img,
+				&game->img.bits_per_pixel, &game->img.line_length,
+				&game->img.endian);
+		game_setup(game);
+		init_textures(game);
+		mlx_loop_hook(game->mlx.mlx, f, game);
+		mlx_loop(game->mlx.mlx);
 	}
 }

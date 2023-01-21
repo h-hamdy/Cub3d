@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 18:16:44 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:01:56 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	ft_east(char *map, t_info *info);
 void	ft_west(char *map, t_info *info);
 void	ft_south(char *map, t_info *info);
 void	ft_north(char *map, t_info *info);
-t_info	*parsing(int ac, char **av);
+t_info	*parsing(char **av);
 int		*rgb_tool(char *map);
 int		check_rgb(char *s);
 void	rgb_handling(int rgb);
@@ -224,7 +224,7 @@ double	distance_between_pointx(double x1, double y1, double x2, double y2);
 int		key_pressed(int key, t_data *game);
 
 // raycasting
-t_wall	*raycasting(t_data *game);
+void	raycasting(t_data *game);
 
 // Utils
 void	normalize(t_data *game);
@@ -239,5 +239,7 @@ void	if_not_wall(t_wall *wall, double *next_x, double *next_y);
 // Mini map
 void	render_mini_map(t_data *game);
 void	_my_mlx_pixel_put(t_data *game, int x, int y, int color);
+
+void	free_data(t_data *game);
 
 #endif

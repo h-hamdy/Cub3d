@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:23 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/20 18:19:25 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:58:35 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*parsing_help(t_info *info, char **av)
 	tmp = ft_strdup("");
 	while (tmp)
 	{
+		free(tmp);
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
@@ -34,8 +35,7 @@ char	*parsing_help(t_info *info, char **av)
 			free(tmp);
 			tmp = ft_strdup(" \n");
 		}
-		a = ft_strjoin(a, tmp);
-		free(tmp);
+		a = ft_strjoin_frees1(a, tmp);
 	}
 	free(tmp);
 	return (a);
@@ -52,7 +52,7 @@ void	check_map_path(char *path)
 		print_error("Invalid Path\n");
 }
 
-t_info	*parsing(int ac, char **av)
+t_info	*parsing(char **av)
 {
 	t_info	*info;
 	char	**map;
@@ -61,13 +61,12 @@ t_info	*parsing(int ac, char **av)
 
 	info = malloc(sizeof(t_info));
 	ft_initdata(info);
-	if (ac > 1)
-	{
-		check_map_path(av[1]);
-		a = parsing_help(info, av);
-		map = ft_split(a, '\n');
-		count = ft_read_map(map, info);
-		ft_parse_map(map, count, info);
-	}
+	check_map_path(av[1]);
+	a = parsing_help(info, av);
+	map = ft_split(a, '\n');
+	free(a);
+	count = ft_read_map(map, info);
+	ft_parse_map(map, count, info);
+	ft_free(map);
 	return (info);
 }

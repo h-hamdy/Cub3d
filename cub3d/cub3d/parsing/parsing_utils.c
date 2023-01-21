@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:26:09 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:26:23 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/21 15:54:31 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**alloc_map(char **map, int i)
 	mapv = malloc(sizeof(char *) * (j + 1));
 	j = 0;
 	while (map[i])
-		mapv[j++] = map[i++];
+		mapv[j++] = ft_strdup(map[i++]);
 	mapv[j] = NULL;
 	return (mapv);
 }
@@ -104,5 +104,6 @@ int	*rgb_tool(char *map)
 		print_error("Invalid RGB\n");
 	var.rgb = rgb_tool_help(&var);
 	free(var.tmp);
+	ft_free(var.hold);
 	return (var.rgb);
 }

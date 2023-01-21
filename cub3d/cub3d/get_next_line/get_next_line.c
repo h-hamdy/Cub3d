@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:24:13 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 01:24:16 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/21 16:11:01 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 		if (ret < 0)
 			return (my_free(&save, &buf));
 		buf[ret] = '\0';
-		save = ft_strjoin(save, buf);
+		save = ft_strjoin_frees1(save, buf);
 	}
 	ft_work(&save, &line, &buf);
 	if (ft_strlen(line) == 0)

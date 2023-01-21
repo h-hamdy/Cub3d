@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:58:20 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 18:00:42 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:57:02 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,13 @@ t_wall	cast(t_data *game, t_wall wall)
 	return (wall);
 }
 
-t_wall	*raycasting(t_data *game)
+void	raycasting(t_data *game)
 {
 	int		i;
 	int		colum_id;
-	t_wall	*wall;
 
 	i = 0;
 	colum_id = 0;
-	wall = (t_wall *)malloc(sizeof(t_wall) * game->ray.num_rays);
 	game->ray.ray_angle = game->p.direction - (game->ray.fov_angle / 2);
 	while (i < game->ray.num_rays)
 	{
@@ -68,11 +66,10 @@ t_wall	*raycasting(t_data *game)
 			game->ray.ray_angle += M_PI * 2;
 		else if (game->ray.ray_angle > M_PI * 2)
 			game->ray.ray_angle -= M_PI * 2;
-		wall[colum_id] = cast(game, wall[i]);
-		wall[colum_id].ray_angle = game->ray.ray_angle;
+		game->wall[colum_id] = cast(game, game->wall[i]);
+		game->wall[colum_id].ray_angle = game->ray.ray_angle;
 		game->ray.ray_angle += game->ray.fov_angle / game->ray.num_rays;
 		i++;
 		colum_id++;
 	}
-	return (wall);
 }

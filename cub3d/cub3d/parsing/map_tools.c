@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/20 18:15:35 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:58:00 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int	*rgb_tool_help(t_var *var)
 	int	j;
 	int	k;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (var->hold[i])
+	while (var->hold[++i])
 	{
 		var->hold2 = ft_split(var->hold[i], ' ');
 		k = 0;
@@ -106,7 +106,7 @@ int	*rgb_tool_help(t_var *var)
 			rgb_handling(var->rgb[j]);
 			j++;
 		}
-		i++;
+		ft_free(var->hold2);
 	}
 	return (var->rgb);
 }
