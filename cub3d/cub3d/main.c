@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 19:01:09 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:09:49 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ int	mouse_event_handler(int button, int x, int y, t_data *game)
 		game->p.direction += 1 * game->p.rotation_speed;
 	if (button == 1 || button == 2)
 	{
+		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
 		render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, \
 			game->mlx.mlx_win, game->img.img, 0, 0);
 		normalize(game);
+		free(game->wall);
+		game->wall = NULL;
 	}
 	return (0);
 }
