@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 08:42:13 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/22 08:51:46 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	walk_direction(t_data *game, int key, double *newx, double *newy)
 	direction = game->p.direction + M_PI / 2;
 	if (key == UP)
 	{
-		printf("%f\n", cos(game->p.direction));
-		printf("%f\n", sin(game->p.direction));
 		*newx = game->p.x + cos(game->p.direction) * game->p.move_speed;
 		*newy = game->p.y + sin(game->p.direction) * game->p.move_speed;
 	}
