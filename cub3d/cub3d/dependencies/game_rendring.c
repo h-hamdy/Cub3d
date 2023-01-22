@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:12:32 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 03:27:28 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:52:24 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rect(t_data *game, int i, int j, int color)
 		y = 0;
 		while (y < g_v.title_size)
 		{
-			_my_mlx_pixel_put(game, j + y, i + x, color);
+			my_mlx_pixel_put(game, j + y, i + x, color);
 			y++;
 		}
 		x++;
@@ -48,7 +48,7 @@ void	render_line(t_data *game, double distance, double direction)
 	k = 0;
 	while (k < distance)
 	{
-		_my_mlx_pixel_put(
+		my_mlx_pixel_put(
 			game,
 			game->p.x + cos(direction) * k,
 			game->p.y + sin(direction) * k,
@@ -68,7 +68,7 @@ void	render_player(t_data *game, int j, int i, int color)
 		y = 0;
 		while (y < 11)
 		{
-			_my_mlx_pixel_put(game, j + y, i + x, color);
+			my_mlx_pixel_put(game, j + y, i + x, color);
 			y++;
 		}
 		x++;

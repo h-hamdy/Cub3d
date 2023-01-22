@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:09:32 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/20 17:43:06 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/22 08:42:01 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_gv(void)
 	g_v.title_size = 32;
 	g_v.map_num_rows = 14;
 	g_v.map_num_cols = 33;
+	g_v.prev_x = 0;
 	g_v.map_num_width = g_v.map_num_cols * g_v.title_size;
 	g_v.map_num_height = g_v.map_num_rows * g_v.title_size;
 }
@@ -41,4 +42,9 @@ void	game_setup(t_data *game)
 	game->ray.wall_hit_x = 0;
 	game->ray.wall_hit_y = 0;
 	game->ray.ray_angle = 0;
+}
+
+int	ft_exit(void)
+{
+	exit (1);
 }

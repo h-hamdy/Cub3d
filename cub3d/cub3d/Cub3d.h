@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 21:54:18 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/22 07:22:46 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_g_var
 	int		map_num_cols;
 	double	map_num_width;
 	double	map_num_height;
+	int		prev_x;
 }			t_g_var;
 
 t_g_var	g_v;
@@ -223,6 +224,7 @@ double	distance_between_pointx(double x1, double y1, double x2, double y2);
 
 // event handling
 int		key_pressed(int key, t_data *game);
+int		ft_exit(void);
 
 // raycasting
 void	raycasting(t_data *game);

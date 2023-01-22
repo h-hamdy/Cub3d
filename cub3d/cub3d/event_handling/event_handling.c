@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 19:00:01 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/22 08:42:13 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	walk_direction(t_data *game, int key, double *newx, double *newy)
 	direction = game->p.direction + M_PI / 2;
 	if (key == UP)
 	{
+		printf("%f\n", cos(game->p.direction));
+		printf("%f\n", sin(game->p.direction));
 		*newx = game->p.x + cos(game->p.direction) * game->p.move_speed;
 		*newy = game->p.y + sin(game->p.direction) * game->p.move_speed;
 	}
@@ -88,9 +90,8 @@ int	key_pressed(int key, t_data *game)
 		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
-		render_mini_map(game);
-		mlx_put_image_to_window(game->mlx.mlx, \
-			game->mlx.mlx_win, game->img.img, 0, 0);
+		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
+			game->img.img, 0, 0);
 		free(game->wall);
 		game->wall = NULL;
 	}

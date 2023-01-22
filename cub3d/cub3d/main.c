@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 21:44:38 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/22 08:41:08 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,28 @@ void	render_mini_map(t_data *game)
 	render_img(game);
 	render_player(game, game->p.x - 3, game->p.y - 3, 0xff0000);
 	render_line(game, 30, game->p.direction);
+	mlx_put_image_to_window(game->mlx.mlx, \
+			game->mlx.mlx_win, game->img.img, 0, 0);
 }
 
-int	mouse_event_handler(int button, int x, int y, t_data *game)
+int	mouse_move_event_handler(int x, int y, t_data *game)
 {
-	(void)x;
 	(void)y;
-	if (button == 1)
-		game->p.direction += -1 * game->p.rotation_speed;
-	else if (button == 2)
-		game->p.direction += 1 * game->p.rotation_speed;
-	if (button == 1 || button == 2)
+	if (x > g_v.prev_x + 15)
+		game->p.direction += game->p.rotation_speed;
+	else if (x < g_v.prev_x - 15)
+		game->p.direction -= game->p.rotation_speed;
+	if (x > g_v.prev_x + 15 || x < g_v.prev_x - 15)
 	{
 		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
-		render_mini_map(game);
-		mlx_put_image_to_window(game->mlx.mlx, \
-			game->mlx.mlx_win, game->img.img, 0, 0);
+		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
+			game->img.img, 0, 0);
 		normalize(game);
 		free(game->wall);
 		game->wall = NULL;
+		g_v.prev_x = x;
 	}
 	return (0);
 }
@@ -76,9 +77,11 @@ int	f(t_data *game)
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 	raycasting(game);
 	render_3d(game);
-	render_mini_map(game);
-	mlx_hook(game->mlx.mlx_win, 4, 0, mouse_event_handler, game);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
+			game->img.img, 0, 0);
+	mlx_hook(game->mlx.mlx_win, 6, 0, mouse_move_event_handler, game);
 	mlx_hook (game->mlx.mlx_win, 2, 0, key_pressed, game);
+	mlx_hook (game->mlx.mlx_win, 17, 0, ft_exit, 0);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 	free(game->wall);
