@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 08:51:46 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:29:36 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	key_pressed(int key, t_data *game)
 		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
+		// render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 		free(game->wall);

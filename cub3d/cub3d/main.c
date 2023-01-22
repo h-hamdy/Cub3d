@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 08:41:08 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:29:24 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	mouse_move_event_handler(int x, int y, t_data *game)
 		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
+		// render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 		normalize(game);
@@ -82,6 +83,7 @@ int	f(t_data *game)
 	mlx_hook(game->mlx.mlx_win, 6, 0, mouse_move_event_handler, game);
 	mlx_hook (game->mlx.mlx_win, 2, 0, key_pressed, game);
 	mlx_hook (game->mlx.mlx_win, 17, 0, ft_exit, 0);
+	// render_mini_map(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 	free(game->wall);

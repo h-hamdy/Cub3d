@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 07:22:46 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:25:28 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define BUFFER_SIZE 1024
 # define WINDOW_WIDTH 1056
-# define WINDOW_HEIGHT 448
+# define WINDOW_HEIGHT 600
 
 # define EXIT 		53
 # define TURN_LEFT	123
