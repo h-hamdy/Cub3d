@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/21 21:56:18 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:55:01 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_garb(char **map, int n_lines)
 	int	j;
 
 	i = 0;
-	while (i < n_lines)
+	while (i < n_lines - 1)
 	{
 		j = skip_spaces(map[i]);
 		if ((map[i][j] == 'N' && map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
