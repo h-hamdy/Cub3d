@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:09:32 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/24 15:28:13 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:34:51 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	game_setup(t_data *game)
 	else
 		game->p.direction = M_PI;
 	game->p.move_speed = 7.0;
-	game->p.rotation_speed = 5 * (M_PI / 180);
+	game->p.rotation_speed = 4 * (M_PI / 180);
 	game->ray.fov_angle = 60 * (M_PI / 180);
 	game->ray.num_rays = 1056;
 	game->ray.wall_hit_x = 0;

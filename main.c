@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/24 15:50:13 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:47:42 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@ void	init_textures(t_data *g)
 	g->tex.f_rgb = rgb_to_hex(g->info->f[0], g->info->f[1], g->info->f[2]);
 }
 
-void	render_mini_map(t_data *game)
-{
-	render_img(game);
-	render_player(game, game->p.x - 3, game->p.y - 3, 0xff0000);
-	render_line(game, 30, game->p.direction);
-	mlx_put_image_to_window(game->mlx.mlx, \
-			game->mlx.mlx_win, game->img.img, 0, 0);
-}
-
 int	mouse_move_event_handler(int x, int y, t_data *game)
 {
 	(void)y;
@@ -61,7 +52,6 @@ int	mouse_move_event_handler(int x, int y, t_data *game)
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 	raycasting(game);
 	render_3d(game);
-	render_mini_map(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 		game->img.img, 0, 0);
 	normalize(game);
@@ -80,7 +70,6 @@ int	start_game(t_data *game, char **av)
 	mlx_mouse_hide();
 	mlx_mouse_move(game->mlx.mlx_win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
-	render_mini_map(game);
 	raycasting(game);
 	render_3d(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \

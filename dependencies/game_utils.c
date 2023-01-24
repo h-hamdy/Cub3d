@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:50:59 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 19:40:01 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:50:39 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,6 @@ char	get_direction(t_data *game)
 		i++;
 	}
 	return (0);
-}
-
-void	_my_mlx_pixel_put(t_data *game, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x < 0 || x >= game->g_v.map_num_width || y < 0 \
-		|| y >= game->g_v.map_num_height)
-		return ;
-	x *= 0.3;
-	y *= 0.3;
-	dst = game->img.addr + \
-		(y * game->img.line_length + x * (game->img.bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 int	is_wall(t_data *game, double x, double y)
