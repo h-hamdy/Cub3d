@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:22:31 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/23 15:05:35 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:55:29 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_var	*gener_3d(t_data *game, t_var *v, int i)
 	v->wallhight = (game->g_v.title_size / v->correct_ray_des) \
 		* v->distencetowall;
 	v->startp = (WINDOW_HEIGHT / 2) - (v->wallhight / 2);
+	if (v->startp > WINDOW_HEIGHT)
+		v->startp = WINDOW_HEIGHT;
 	v->endp = v->startp + v->wallhight;
 	if (v->endp > WINDOW_HEIGHT)
 		v->endp = WINDOW_HEIGHT;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:48:33 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/23 16:26:56 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:50:03 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	normalize(t_data *game)
 void	turn_direction(t_data *game, int key)
 {
 	if (key == EXIT)
-		exit (1);
+		exit (0);
 	if (key == TURN_LEFT)
 		game->p.direction += -1 * game->p.rotation_speed;
 	else if (key == TURN_RIGHT)
@@ -88,6 +88,7 @@ int	key_pressed(int key, t_data *game)
 		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 		raycasting(game);
 		render_3d(game);
+		render_mini_map(game);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 		free(game->wall);

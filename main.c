@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/24 14:50:10 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:50:13 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	mouse_move_event_handler(int x, int y, t_data *game)
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 	raycasting(game);
 	render_3d(game);
+	render_mini_map(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 		game->img.img, 0, 0);
 	normalize(game);
@@ -70,9 +71,16 @@ int	mouse_move_event_handler(int x, int y, t_data *game)
 	return (0);
 }
 
-int	f(t_data *game)
+int	start_game(t_data *game, char **av)
 {
+	game->info = parsing (av);
+	init_gv(game);
+	game_setup(game);
+	init_textures(game);
+	mlx_mouse_hide();
+	mlx_mouse_move(game->mlx.mlx_win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
+	render_mini_map(game);
 	raycasting(game);
 	render_3d(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
@@ -88,8 +96,6 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
-		game.info = parsing (av);
-		init_gv(&game);
 		game.mlx.mlx = mlx_init();
 		game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, WINDOW_WIDTH, \
 			WINDOW_HEIGHT, "Cub3d");
@@ -98,11 +104,7 @@ int	main(int ac, char **av)
 		game.img.addr = mlx_get_data_addr(game.img.img,
 				&game.img.bits_per_pixel, &game.img.line_length,
 				&game.img.endian);
-		game_setup(&game);
-		init_textures(&game);
-		mlx_mouse_hide();
-		mlx_mouse_move(game.mlx.mlx_win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-		f(&game);
+		start_game(&game, av);
 		mlx_hook(game.mlx.mlx_win, 6, 0, mouse_move_event_handler, &game);
 		mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
 		mlx_hook (game.mlx.mlx_win, 17, 0, ft_exit, 0);
