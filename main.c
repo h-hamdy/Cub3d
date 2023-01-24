@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:49:11 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 19:41:48 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:50:10 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,20 @@ void	render_mini_map(t_data *game)
 int	mouse_move_event_handler(int x, int y, t_data *game)
 {
 	(void)y;
-	if (x > game->g_v.prev_x + 15)
+	mlx_mouse_move(game->mlx.mlx_win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	if (x > WINDOW_WIDTH / 2)
 		game->p.direction += game->p.rotation_speed;
-	else if (x < game->g_v.prev_x - 15)
+	else if (x < WINDOW_WIDTH / 2)
 		game->p.direction -= game->p.rotation_speed;
-	if (x > game->g_v.prev_x + 15 || x < game->g_v.prev_x - 15)
-	{
-		game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
-		raycasting(game);
-		render_3d(game);
-		mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
-			game->img.img, 0, 0);
-		normalize(game);
-		free(game->wall);
-		game->wall = NULL;
-		game->g_v.prev_x = x;
-	}
+	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
+	raycasting(game);
+	render_3d(game);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
+		game->img.img, 0, 0);
+	normalize(game);
+	free(game->wall);
+	game->wall = NULL;
+	game->g_v.prev_x = x;
 	return (0);
 }
 
@@ -77,11 +75,6 @@ int	f(t_data *game)
 	game->wall = ft_calloc(sizeof(t_wall), game->ray.num_rays);
 	raycasting(game);
 	render_3d(game);
-	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
-			game->img.img, 0, 0);
-	mlx_hook(game->mlx.mlx_win, 6, 0, mouse_move_event_handler, game);
-	mlx_hook (game->mlx.mlx_win, 2, 0, key_pressed, game);
-	mlx_hook (game->mlx.mlx_win, 17, 0, ft_exit, 0);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win, \
 			game->img.img, 0, 0);
 	free(game->wall);
@@ -107,7 +100,12 @@ int	main(int ac, char **av)
 				&game.img.endian);
 		game_setup(&game);
 		init_textures(&game);
-		mlx_loop_hook(game.mlx.mlx, f, &game);
+		mlx_mouse_hide();
+		mlx_mouse_move(game.mlx.mlx_win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		f(&game);
+		mlx_hook(game.mlx.mlx_win, 6, 0, mouse_move_event_handler, &game);
+		mlx_hook (game.mlx.mlx_win, 2, 0, key_pressed, &game);
+		mlx_hook (game.mlx.mlx_win, 17, 0, ft_exit, 0);
 		mlx_loop(game.mlx.mlx);
 	}
 }

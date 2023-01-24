@@ -25,14 +25,20 @@ SRCS	=	main.c \
 			event_handling/event_handling.c \
 			3d_projection/render_3d.c \
 
+MINILIBX = minilibx/libmlx.a
+
 all:	$(NAME)
 
-$(NAME):	$(LIBFT) $(SRCS)
-	@ $(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT) -L /usr/local/lib -lmlx -framework OpenGl -framework Appkit
+$(NAME):	$(LIBFT) $(SRCS) $(MINILIBX)
+	@ $(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT) $(MINILIBX) -L /usr/local/lib -I minilibx -lmlx -framework OpenGl -framework Appkit
 	@ echo "\n\033[1;32mCub3D has been compiled!\033[0m\n"
+
+$(MINILIBX):
+	make -c minilibx &> /dev/null
 
 $(LIBFT):
 	@ make -C libft > /dev/null
+	@ make -C minilibx > /dev/null
 	@ make bonus -C libft > /dev/null
 
 clean:
