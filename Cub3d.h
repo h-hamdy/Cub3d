@@ -6,7 +6,7 @@
 /*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/24 16:36:32 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:54:22 by hhamdy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,11 +214,6 @@ void	game_setup(t_data *game);
 
 // game rendring
 void	my_mlx_pixel_put(t_data *game, int x, int y, int color);
-void	rect(t_data *game, int i, int j, int color);
-void	render_line(t_data *game, double distance, double direction);
-void	render_player(t_data *game, int i, int j, int color);
-void	render_img(t_data *game);
-void	turn_direction(t_data *game, int key);
 
 // count_distance
 double	get_distance(double horzHitDistance, double vertHitDistance);
@@ -233,6 +228,7 @@ void	raycasting(t_data *game);
 
 // Utils
 void	normalize(t_data *game);
+void	turn_direction(t_data *game, int key);
 char	get_direction(t_data *game);
 int		is_wall(t_data *game, double x, double y);
 
@@ -240,10 +236,6 @@ int		is_wall(t_data *game, double x, double y);
 bool	horizontal_ray(t_data *game, t_wall *wall);
 bool	vertical_ray(t_data *game, t_wall *wall);
 void	if_not_wall(t_wall *wall, double *next_x, double *next_y);
-
-// Mini map
-void	render_mini_map(t_data *game);
-void	_my_mlx_pixel_put(t_data *game, int x, int y, int color);
 
 void	free_data(t_data *game);
 
