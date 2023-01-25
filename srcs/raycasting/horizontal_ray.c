@@ -6,11 +6,11 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:12:00 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/22 17:52:37 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 void	h_interception_count(t_data *game, t_wall *wall)
 {

@@ -6,11 +6,11 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:26:09 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 15:54:31 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 int	check_edges(char **map, int i, int j)
 {
@@ -34,7 +34,7 @@ void	check_previous(int now, char *previous, char *next)
 	i = (int)ft_strlen(next);
 	j = (int)ft_strlen(previous);
 	if (now >= j || now >= i)
-		print_error("Invalid map\n");
+		print_error("ERROR\n");
 }
 
 void	check_map(char **map)
@@ -51,7 +51,7 @@ void	check_map(char **map)
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
 				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
 				&& map[i][j] != ' ')
-				print_error("Invalid map\n");
+				print_error("ERROR\n");
 			j++;
 		}
 		i++;
@@ -81,26 +81,26 @@ char	**alloc_map(char **map, int i)
 
 int	*rgb_tool(char *map)
 {
-	int		i;
 	t_var	var;
 
 	var.rgb = malloc(sizeof(int) * 3);
 	var.tmp = ft_strdup("");
-	i = skip_spaces(map) + 1;
-	while (map[i] && !ft_isdigit(map[i]))
+	var.i = skip_spaces(map) + 1;
+	while (map[var.i] && !ft_isdigit(map[var.i]))
 	{
-		if (map[i] == ',')
+		if (map[var.i] == ',')
 			print_error("Invalid RGB\n");
-		if (map[i] == ' ' || map[i] == '\t')
-			i++;
+		if (map[var.i] == ' ' || map[var.i] == '\t')
+			var.i++;
 	}
-	while (map[i])
-		var.tmp = ft_strjoin2(var.tmp, map[i++]);
+	while (map[var.i])
+		var.tmp = ft_strjoin2(var.tmp, map[var.i++]);
+	var.tmp = handel_end_spaces(var.tmp);
 	var.hold = ft_split(var.tmp, ',');
-	i = 0;
-	while (var.hold[i])
-		i++;
-	if (i != 3)
+	var.i = 0;
+	while (var.hold[var.i])
+		var.i++;
+	if (var.i != 3)
 		print_error("Invalid RGB\n");
 	var.rgb = rgb_tool_help(&var);
 	free(var.tmp);

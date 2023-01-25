@@ -1,0 +1,42 @@
+NO ./srcs//textures/wall_no.xpm          
+
+
+ SO ./srcs/textures/wall_so.xpm 
+
+
+
+  WE ./srcs/textures/wall_we.xpm 
+ 
+
+
+      EA        ./srcs/textures/wall_ea.xpm   
+
+
+           
+
+
+        C          135,0,23     
+
+
+
+F 234,221,202   
+
+
+
+
+
+
+
+                
+
+
+
+
+
+1111111111111111                  
+10000000000S1  1                  
+1111111111101111                  
+100000010001                  
+100001111001                  
+100001000001        
+111111111111 

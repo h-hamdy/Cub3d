@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:22:31 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/24 15:55:29 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/25 21:11:42 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 int	rgb_to_hex(int r, int g, int b)
 {
@@ -28,11 +28,9 @@ t_var	*gener_3d(t_data *game, t_var *v, int i)
 	v->wallhight = (game->g_v.title_size / v->correct_ray_des) \
 		* v->distencetowall;
 	v->startp = (WINDOW_HEIGHT / 2) - (v->wallhight / 2);
-	if (v->startp > WINDOW_HEIGHT)
-		v->startp = WINDOW_HEIGHT;
 	v->endp = v->startp + v->wallhight;
-	if (v->endp > WINDOW_HEIGHT)
-		v->endp = WINDOW_HEIGHT;
+	if (v->endp > (float)WINDOW_HEIGHT)
+		v->endp = (float)WINDOW_HEIGHT;
 	return (v);
 }
 
@@ -76,7 +74,7 @@ void	render_3d(t_data *game)
 			v.t_offsety = (j - v.startp) * ((float)TEX_HEIGHT / v.wallhight);
 			v.dst = img.addr + v.t_offsety * game->tex.img.line_length \
 				+ v.t_offsetx * (game->tex.img.bits_per_pixel / 8);
-			my_mlx_pixel_put(game, i, j++, *(int *)v.dst);
+			my_mlx_pixel_put(game, i, j++, *(unsigned int *)v.dst);
 		}
 		while (j < WINDOW_HEIGHT)
 			my_mlx_pixel_put(game, i, j++, game->tex.f_rgb);

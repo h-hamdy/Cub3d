@@ -6,11 +6,11 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:38 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/23 16:23:35 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 t_elements	init_elements(void)
 {
@@ -83,6 +83,8 @@ int	ft_read_map(char **map, t_info *info)
 	{
 		if (!check_line(map[i]))
 			s++;
+		else if (check_line(map[i]) && elm.count == 6)
+			break ;
 		elm.count = ft_read_map_help(&elm, map, info, i);
 		i++;
 	}

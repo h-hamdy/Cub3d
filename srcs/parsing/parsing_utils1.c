@@ -6,11 +6,11 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:32 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/21 21:41:52 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 void	print_error(char *s)
 {
@@ -30,9 +30,10 @@ void	ft_north(char *map, t_info *info)
 	tmp = ft_strdup("");
 	count = check_path(map);
 	if (count == -1)
-		print_error("Invalid map\n");
+		print_error("ERROR\n");
 	while (map[count])
 		tmp = ft_strjoin2(tmp, map[count++]);
+	tmp = handel_end_spaces(tmp);
 	if (!info->no)
 		info->no = tmp;
 	else
@@ -51,9 +52,10 @@ void	ft_south(char *map, t_info *info)
 	tmp = ft_strdup("");
 	count = check_path(map);
 	if (count == -1)
-		print_error("Invalid map\n");
+		print_error("ERROR\n");
 	while (map[count])
 		tmp = ft_strjoin2(tmp, map[count++]);
+	tmp = handel_end_spaces(tmp);
 	if (!info->so)
 		info->so = tmp;
 	else
@@ -72,9 +74,10 @@ void	ft_west(char *map, t_info *info)
 	tmp = ft_strdup("");
 	count = check_path(map);
 	if (count == -1)
-		print_error("Invalid map\n");
+		print_error("ERROR\n");
 	while (map[count])
 		tmp = ft_strjoin2(tmp, map[count++]);
+	tmp = handel_end_spaces(tmp);
 	if (!info->we)
 		info->we = tmp;
 	else
@@ -93,9 +96,10 @@ void	ft_east(char *map, t_info *info)
 	tmp = ft_strdup("");
 	count = check_path(map);
 	if (count == -1)
-		print_error("Invalid map\n");
+		print_error("ERROR\n");
 	while (map[count])
 		tmp = ft_strjoin2(tmp, map[count++]);
+	tmp = handel_end_spaces(tmp);
 	if (!info->ea)
 		info->ea = tmp;
 	else

@@ -6,11 +6,11 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:24:13 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/21 16:11:01 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 static	int	ft_nchr(char *save)
 {

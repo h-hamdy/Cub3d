@@ -1,29 +1,29 @@
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror #-g -fsanitize=address
 
 NAME	=	cub3D
 
 LIBFT	=	libft/libft.a
 
 SRCS	=	main.c \
-			get_next_line/get_next_line.c \
-			parsing/cub3d_utils.c \
-			parsing/get_data.c \
-			parsing/parsing.c \
-			parsing/parsing_utils.c \
-			parsing/parsing_utils1.c \
-			parsing/floor_and_ceil.c \
-			parsing/map_tools.c \
-			raycasting/raycasting.c \
-			raycasting/horizontal_ray.c \
-			raycasting/vertical_ray.c \
-			dependencies/game_rendring.c \
-			dependencies/count_distance.c \
-			dependencies/game_setup.c \
-			dependencies/game_utils.c \
-			event_handling/event_handling.c \
-			3d_projection/render_3d.c \
+			srcs/get_next_line/get_next_line.c \
+			srcs/parsing/cub3d_utils.c \
+			srcs/parsing/get_data.c \
+			srcs/parsing/parsing.c \
+			srcs/parsing/parsing_utils.c \
+			srcs/parsing/parsing_utils1.c \
+			srcs/parsing/floor_and_ceil.c \
+			srcs/parsing/map_tools.c \
+			srcs/raycasting/raycasting.c \
+			srcs/raycasting/horizontal_ray.c \
+			srcs/raycasting/vertical_ray.c \
+			srcs/dependencies/game_rendring.c \
+			srcs/dependencies/count_distance.c \
+			srcs/dependencies/game_setup.c \
+			srcs/dependencies/game_utils.c \
+			srcs/event_handling/event_handling.c \
+			srcs/3d_projection/render_3d.c \
 
 MINILIBX = minilibx/libmlx.a
 

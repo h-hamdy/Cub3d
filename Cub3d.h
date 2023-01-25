@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:25:42 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/24 18:54:22 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/25 21:06:48 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct s_vars
 	char	*dst;
 	int		t_offsetx;
 	int		t_offsety;
+	int		i;
 }			t_var;
 
 // PARSING
@@ -202,6 +203,7 @@ int		ft_read_map_help(t_elements *elm, char **map, t_info *info, int i);
 int		*rgb_tool_help(t_var *var);
 void	ft_free(char **str);
 void	check_garb(char **map, int n_lines, t_elements elm);
+char	*handel_end_spaces(char *s);
 
 // render 3D
 void	render_3d(t_data *game);

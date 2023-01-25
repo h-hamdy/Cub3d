@@ -6,11 +6,35 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:52:12 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/18 21:37:20 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
+
+char	*handel_end_spaces(char *s)
+{
+	int		i;
+	int		j;
+	char	*ret;
+
+	ret = ft_strdup("");
+	i = ft_strlen(s) - 1;
+	j = 0;
+	while (j < i)
+	{
+		if (s[i] == ' ')
+			i--;
+		else
+			break ;
+		j++;
+	}
+	j = 0;
+	while (j <= i)
+		ret = ft_strjoin2(ret, s[j++]);
+	free(s);
+	return (ret);
+}
 
 char	*ft_strjoin2(char *s, char c)
 {
@@ -68,7 +92,7 @@ void	check_player(char **map)
 		i++;
 	}
 	if (count != 1)
-		print_error("Invalid player\n");
+		print_error("ERROR\n");
 }
 
 void	ft_initdata(t_info *info)

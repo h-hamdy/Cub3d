@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   count_distance.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhamdy <hhamdy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:26:56 by hhamdy            #+#    #+#             */
-/*   Updated: 2023/01/17 14:36:15 by hhamdy           ###   ########.fr       */
+/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cub3d.h"
+#include "../../Cub3d.h"
 
 double	distance_between_pointx(double x1, double y1, double x2, double y2)
 {
