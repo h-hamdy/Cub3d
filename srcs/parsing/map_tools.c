@@ -6,7 +6,7 @@
 /*   By: fbouanan <fbouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:19:49 by fbouanan          #+#    #+#             */
-/*   Updated: 2023/01/25 21:05:45 by fbouanan         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:32:08 by fbouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	check_garb(char **map, int n_lines, t_elements elm)
 		else if (!map[elm.i][elm.j])
 			elm.i++;
 		else
-		{
 			print_error("Invalid element\n");
-		}
 	}
 }
 
